@@ -5,3 +5,7 @@
 /.vs
 /PersonnelTrackingSystem/.vs/PersonnelTrackingSystem
 /PersonnelTrackingSystem/PersonnelTrackingSystem.WebApp/obj
+/PersonnelTrackingSystem/PersonnelTrackingSystem/obj
+/PersonnelTrackingSystem/PersonnelTrackingSystem.Business/obj
+/PersonnelTrackingSystem/PersonnelTrackingSystem.DataAccess/obj
+/PersonnelTrackingSystem/PersonnelTrackingSystem.WebApp/bin/Debug/net6.0
