@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/PersonnelTrackingSystem/.vs/PersonnelTrackingSystem
+/PersonnelTrackingSystem/PersonnelTrackingSystem.WebApp/obj

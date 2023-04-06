@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.33516.290
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03- UserInterface", "03- UserInterface", "{DA9E1B00-9F85-4B1F-976F-08E85F21D227}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem.WebApp", "PersonnelTrackingSystem.WebApp\PersonnelTrackingSystem.WebApp.csproj", "{932004F8-70FA-44F8-9152-81BFE3B942FF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Business", "02-Business", "{AF3DC91D-41B3-4894-97AA-DDA12DFAF0DB}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Data", "01-Data", "{EC165A34-56CB-4345-8A24-0E1C25B530A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Cros Cutting", "00-Cros Cutting", "{15F16066-298C-49C6-A2F2-3A8EA26E8C03}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{932004F8-70FA-44F8-9152-81BFE3B942FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{932004F8-70FA-44F8-9152-81BFE3B942FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{932004F8-70FA-44F8-9152-81BFE3B942FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{932004F8-70FA-44F8-9152-81BFE3B942FF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{932004F8-70FA-44F8-9152-81BFE3B942FF} = {DA9E1B00-9F85-4B1F-976F-08E85F21D227}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1CAEDE90-B124-4257-B412-7EE447E969A4}
+	EndGlobalSection
+EndGlobal
