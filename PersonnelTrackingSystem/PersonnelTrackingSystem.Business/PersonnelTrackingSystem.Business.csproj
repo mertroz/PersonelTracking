@@ -14,4 +14,10 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\PersonnelTrackingSystem.DataAccess\PersonnelTrackingSystem.DataAccess.csproj" />
+    <ProjectReference Include="..\PersonnelTrackingSystem.Domain\PersonnelTrackingSystem.Domain.csproj" />
+    <ProjectReference Include="..\PersonnelTrackingSystem\PersonnelTrackingSystem.csproj" />
+  </ItemGroup>
+
 </Project>

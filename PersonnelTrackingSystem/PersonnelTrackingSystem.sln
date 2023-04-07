@@ -5,7 +5,7 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03- UserInterface", "03- UserInterface", "{DA9E1B00-9F85-4B1F-976F-08E85F21D227}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem.WebApp", "PersonnelTrackingSystem.WebApp\PersonnelTrackingSystem.WebApp.csproj", "{932004F8-70FA-44F8-9152-81BFE3B942FF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem.WebApp", "PersonnelTrackingSystem.WebApp\PersonnelTrackingSystem.WebApp.csproj", "{932004F8-70FA-44F8-9152-81BFE3B942FF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02-Business", "02-Business", "{AF3DC91D-41B3-4894-97AA-DDA12DFAF0DB}"
 EndProject
@@ -13,11 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-Data", "01-Data", "{EC16
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00-Cros Cutting", "00-Cros Cutting", "{15F16066-298C-49C6-A2F2-3A8EA26E8C03}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem", "PersonnelTrackingSystem\PersonnelTrackingSystem.csproj", "{BC5FF201-A6CA-4114-A422-F50B05515A2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem", "PersonnelTrackingSystem\PersonnelTrackingSystem.csproj", "{BC5FF201-A6CA-4114-A422-F50B05515A2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem.DataAccess", "PersonnelTrackingSystem.DataAccess\PersonnelTrackingSystem.DataAccess.csproj", "{8E83E272-E124-4719-B7DF-F6ED037317BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem.DataAccess", "PersonnelTrackingSystem.DataAccess\PersonnelTrackingSystem.DataAccess.csproj", "{8E83E272-E124-4719-B7DF-F6ED037317BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem.Business", "PersonnelTrackingSystem.Business\PersonnelTrackingSystem.Business.csproj", "{C49523DF-1782-4975-9DFE-961A4378C8D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem.Business", "PersonnelTrackingSystem.Business\PersonnelTrackingSystem.Business.csproj", "{C49523DF-1782-4975-9DFE-961A4378C8D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem.Domain", "PersonnelTrackingSystem.Domain\PersonnelTrackingSystem.Domain.csproj", "{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{C49523DF-1782-4975-9DFE-961A4378C8D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C49523DF-1782-4975-9DFE-961A4378C8D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C49523DF-1782-4975-9DFE-961A4378C8D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{BC5FF201-A6CA-4114-A422-F50B05515A2E} = {15F16066-298C-49C6-A2F2-3A8EA26E8C03}
 		{8E83E272-E124-4719-B7DF-F6ED037317BC} = {EC165A34-56CB-4345-8A24-0E1C25B530A6}
 		{C49523DF-1782-4975-9DFE-961A4378C8D2} = {AF3DC91D-41B3-4894-97AA-DDA12DFAF0DB}
+		{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D} = {AF3DC91D-41B3-4894-97AA-DDA12DFAF0DB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1CAEDE90-B124-4257-B412-7EE447E969A4}
