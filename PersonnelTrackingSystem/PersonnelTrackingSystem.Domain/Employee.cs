@@ -18,6 +18,6 @@ namespace PersonnelTrackingSystem.Domain
         public string Address { get; set; }
         public string Department { get; set; }
         public DateTime HiringDate { get; set; }
-
+        public Gender Gender { get; set; }
     }
 }
