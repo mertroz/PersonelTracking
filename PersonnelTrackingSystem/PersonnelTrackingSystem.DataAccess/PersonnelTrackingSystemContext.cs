@@ -31,6 +31,7 @@ namespace PersonnelTrackingSystem.DataAccess
             modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
             modelBuilder.ApplyConfiguration(new ShiftConfiguration());
             modelBuilder.ApplyConfiguration(new SalaryCalculatorConfiguration());
+
         }
     }
 }
