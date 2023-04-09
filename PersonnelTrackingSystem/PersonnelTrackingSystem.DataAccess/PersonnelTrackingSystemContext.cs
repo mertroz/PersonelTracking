@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PersonnelTrackingSystem.DataAccess.Configuration;
 using PersonnelTrackingSystem.Domain;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace PersonnelTrackingSystem.DataAccess
     public class PersonnelTrackingSystemContext: DbContext
     {
         private const string ConnectionString =
-            "Server=.;Database=McTours;Integrated Security=true";
+            "Server=.;Database=PersonnelTrackingSystem;Integrated Security=true";
 
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<Shift> Shifts { get; set; }
+        public DbSet<SalaryCalculator> SalaryCalculators { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -25,7 +28,9 @@ namespace PersonnelTrackingSystem.DataAccess
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // buraları doldur
+            modelBuilder.ApplyConfiguration(new EmployeeConfiguration());
+            modelBuilder.ApplyConfiguration(new ShiftConfiguration());
+            modelBuilder.ApplyConfiguration(new SalaryCalculatorConfiguration());
         }
     }
 }

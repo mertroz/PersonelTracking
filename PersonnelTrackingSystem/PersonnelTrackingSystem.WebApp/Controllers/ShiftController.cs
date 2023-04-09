@@ -1,33 +1,34 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Employees;
+using PersonnelTrackingSystem.Shifts;
 using PersonnelTrackingSystem.WebApp.Helper;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
-    public class EmployeeController : Controller
+    public class ShiftController : Controller
     {
+        private readonly ShiftService _shiftService = new ShiftService();
         private readonly EmployeeService _employeeService = new EmployeeService();
 
         public IActionResult Index()
         {
-            var employee = _employeeService.GetAll();
-            return View(employee);
+            var shift = _shiftService.GetAll();
+            return View(shift);
         }
-
-         public IActionResult Create()
+        public IActionResult Create()
         {
-            ViewBag.Employees = _employeeService.GetAll();
+            ViewBag.Shifts = _shiftService.GetAll();
             return View();
-            
+
         }
 
         [HttpPost]
-        public IActionResult Create(EmployeeDto employee)
+        public IActionResult Create(ShiftDto shift)
         {
-            var commandResult = _employeeService.Create(employee);
-            ViewBag.Employees = _employeeService.GetAll();
+            var commandResult = _shiftService.Create(shift);
+            ViewBag.Shifts = _shiftService.GetAll();
+
             if (commandResult.IsSuccess)
             {
                 TempData[Keys.ResultMessage] = commandResult.Message;
@@ -41,10 +42,10 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         }
         public IActionResult Update(int id)
         {
-            var updateId = _employeeService.GetById(id);
+            var updateId = _shiftService.GetById(id);
             if (updateId != null)
             {
-                
+
                 return View(updateId);
             }
             else
@@ -55,10 +56,10 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Update(EmployeeDto employee)
+        public IActionResult Update(ShiftDto shift)
         {
 
-            var commandResult = _employeeService.Update(employee);
+            var commandResult = _shiftService.Update(shift);
             if (commandResult.IsSuccess)
             {
                 TempData[Keys.ResultMessage] = commandResult.Message;
@@ -67,15 +68,15 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             else
             {
                 ViewBag.ResultMessage = commandResult.Message;
-                return View(employee);
+                return View(shift);
             }
         }
         public IActionResult Delete(int id)
         {
-            var employee = _employeeService.GetById(id);
-            if (employee != null)
+            var shift = _shiftService.GetById(id);
+            if (shift != null)
             {
-                return View(employee);
+                return View(shift);
             }
             else
             {
@@ -85,9 +86,9 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult Delete(EmployeeDto employee)
+        public IActionResult Delete(ShiftDto shift)
         {
-            var commandResult = _employeeService.Delete(employee);
+            var commandResult = _shiftService.Delete(shift);
             if (commandResult.IsSuccess)
             {
                 TempData["ResultMessage"] = commandResult.Message;
@@ -96,9 +97,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             else
             {
                 ViewBag.ResultMessage = commandResult.Message;
-                return View(employee);
+                return View(shift);
             }
         }
-
     }
 }
