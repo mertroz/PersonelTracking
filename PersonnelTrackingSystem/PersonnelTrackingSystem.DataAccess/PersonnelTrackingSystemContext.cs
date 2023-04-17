@@ -18,6 +18,8 @@ namespace PersonnelTrackingSystem.DataAccess
         public DbSet<Shift> Shifts { get; set; }
         public DbSet<SalaryCalculator> SalaryCalculators { get; set; }
         public DbSet<SalaryPayment> SalaryPayments { get; set; }
+        public DbSet<Permission> Permissions { get; set; }
+        public DbSet<Cost> Costs { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -33,6 +35,8 @@ namespace PersonnelTrackingSystem.DataAccess
             modelBuilder.ApplyConfiguration(new ShiftConfiguration());
             modelBuilder.ApplyConfiguration(new SalaryCalculatorConfiguration());
             modelBuilder.ApplyConfiguration(new SalaryPaymentConfiguration());
+            modelBuilder.ApplyConfiguration(new PermissionConfiguration());
+            modelBuilder.ApplyConfiguration(new CostConfiguration());
           
 
         }
