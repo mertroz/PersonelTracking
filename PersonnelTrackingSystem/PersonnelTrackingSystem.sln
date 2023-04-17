@@ -19,7 +19,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem.Dat
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem.Business", "PersonnelTrackingSystem.Business\PersonnelTrackingSystem.Business.csproj", "{C49523DF-1782-4975-9DFE-961A4378C8D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PersonnelTrackingSystem.Domain", "PersonnelTrackingSystem.Domain\PersonnelTrackingSystem.Domain.csproj", "{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PersonnelTrackingSystem.Domain", "PersonnelTrackingSystem.Domain\PersonnelTrackingSystem.Domain.csproj", "{EBCB0EBD-F804-4D5E-AD8B-6C0695751B8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
