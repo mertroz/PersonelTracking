@@ -20,6 +20,7 @@ namespace PersonnelTrackingSystem.DataAccess
         public DbSet<SalaryPayment> SalaryPayments { get; set; }
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<Cost> Costs { get; set; }
+        public DbSet<Material> Materials { get; set; }
 
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -27,6 +28,7 @@ namespace PersonnelTrackingSystem.DataAccess
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseSqlServer(ConnectionString);
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -37,6 +39,7 @@ namespace PersonnelTrackingSystem.DataAccess
             modelBuilder.ApplyConfiguration(new SalaryPaymentConfiguration());
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new CostConfiguration());
+            modelBuilder.ApplyConfiguration(new MaterialConfiguration());
           
 
         }
