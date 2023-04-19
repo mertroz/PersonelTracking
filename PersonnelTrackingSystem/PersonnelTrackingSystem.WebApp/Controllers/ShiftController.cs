@@ -1,103 +1,84 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using PersonnelTrackingSystem.Business.Servicess;
-using PersonnelTrackingSystem.Employees;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Shifts;
-using PersonnelTrackingSystem.WebApp.Helper;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
     public class ShiftController : Controller
     {
-        private readonly ShiftService _shiftService = new ShiftService();
-        private readonly EmployeeService _employeeService = new EmployeeService();
-
-        public IActionResult Index()
+        // GET: ShiftController
+        public ActionResult Index()
         {
-            var shift = _shiftService.GetAll();
-            return View(shift);
+            List<ShiftDto> list = new List<ShiftDto>();
+            return View(list);
         }
-        public IActionResult Create()
+
+        // GET: ShiftController/Details/5
+        public ActionResult Details(int id)
         {
-            ViewBag.Shifts = _shiftService.GetAll();
             return View();
-
         }
 
-        [HttpPost]
-        public IActionResult Create(ShiftDto shift)
+        // GET: ShiftController/Create
+        public ActionResult Create()
         {
-            var commandResult = _shiftService.Create(shift);
-            ViewBag.Shifts = _shiftService.GetAll();
+            return View();
+        }
 
-            if (commandResult.IsSuccess)
+        // POST: ShiftController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
             {
-                TempData[Keys.ResultMessage] = commandResult.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
+            catch
             {
-                ViewBag.ResultMessage = commandResult.Message;
                 return View();
             }
         }
-        public IActionResult Update(int id)
-        {
-            var updateId = _shiftService.GetById(id);
-            if (updateId != null)
-            {
 
-                return View(updateId);
-            }
-            else
-            {
-                TempData[Keys.ErrorMessage] = "Kayıt Bulunamadı";
-                return RedirectToAction("Index");
-            }
+        // GET: ShiftController/Edit/5
+        public ActionResult Edit(int id)
+        {
+            return View();
         }
 
+        // POST: ShiftController/Edit/5
         [HttpPost]
-        public IActionResult Update(ShiftDto shift)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
         {
-
-            var commandResult = _shiftService.Update(shift);
-            if (commandResult.IsSuccess)
+            try
             {
-                TempData[Keys.ResultMessage] = commandResult.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
+            catch
             {
-                ViewBag.ResultMessage = commandResult.Message;
-                return View(shift);
-            }
-        }
-        public IActionResult Delete(int id)
-        {
-            var shift = _shiftService.GetById(id);
-            if (shift != null)
-            {
-                return View(shift);
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Kayıt Bulunamadı";
-                return RedirectToAction("Index");
+                return View();
             }
         }
 
+        // GET: ShiftController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: ShiftController/Delete/5
         [HttpPost]
-        public IActionResult Delete(ShiftDto shift)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
         {
-            var commandResult = _shiftService.Delete(shift);
-            if (commandResult.IsSuccess)
+            try
             {
-                TempData["ResultMessage"] = commandResult.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
+            catch
             {
-                ViewBag.ResultMessage = commandResult.Message;
-                return View(shift);
+                return View();
             }
         }
     }

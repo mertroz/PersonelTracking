@@ -7,15 +7,33 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\vendor\sass\node_modules\immutable\dist\immutable.es.js" />
+    <None Include="wwwroot\vendor\sass\node_modules\immutable\dist\immutable.js.flow" />
+    <None Include="wwwroot\vendor\sass\node_modules\immutable\dist\immutable.min.js" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\vendor\chartist\dist\scss\settings\" />
+    <Folder Include="wwwroot\vendor\sass\types\legacy\" />
+    <Folder Include="wwwroot\vendor\sass\types\logger\" />
+    <Folder Include="wwwroot\vendor\sass\types\util\" />
+    <Folder Include="wwwroot\vendor\sass\types\value\" />
+    <Folder Include="wwwroot\vendor\waypoints\src\" />
+    <Folder Include="wwwroot\vendor\waypoints\test\" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.13" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\PersonnelTrackingSystem.Business\PersonnelTrackingSystem.Business.csproj" />
+    <ProjectReference Include="..\PersonnelTrackingSystem\PersonnelTrackingSystem.csproj" />
   </ItemGroup>
 
 </Project>

@@ -13,3 +13,5 @@ C:\Users\Mert\source\repos\mertroz\PersonelTracking\PersonnelTrackingSystem\Pers
 C:\Users\Mert\source\repos\mertroz\PersonelTracking\PersonnelTrackingSystem\PersonnelTrackingSystem.Domain\obj\Debug\net6.0\refint\PersonnelTrackingSystem.Domain.dll
 C:\Users\Mert\source\repos\mertroz\PersonelTracking\PersonnelTrackingSystem\PersonnelTrackingSystem.Domain\obj\Debug\net6.0\PersonnelTrackingSystem.Domain.pdb
 C:\Users\Mert\source\repos\mertroz\PersonelTracking\PersonnelTrackingSystem\PersonnelTrackingSystem.Domain\obj\Debug\net6.0\ref\PersonnelTrackingSystem.Domain.dll
+C:\Users\Mert\source\repos\mertroz\PersonelTracking\PersonnelTrackingSystem\PersonnelTrackingSystem.Domain\bin\Debug\net6.0\PersonnelTrackingSystem.Domain.runtimeconfig.json
+C:\Users\Mert\source\repos\mertroz\PersonelTracking\PersonnelTrackingSystem\PersonnelTrackingSystem.Domain\obj\Debug\net6.0\PersonnelTrackingSystem.Domain.genruntimeconfig.cache
