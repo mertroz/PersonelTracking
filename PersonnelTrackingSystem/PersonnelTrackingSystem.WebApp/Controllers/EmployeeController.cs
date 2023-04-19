@@ -1,104 +1,90 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Employees;
-using PersonnelTrackingSystem.WebApp.Helper;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        private readonly EmployeeService _employeeService = new EmployeeService();
-
-        public IActionResult Index()
+        public ActionResult Index()
         {
-            var employee = _employeeService.GetAll();
-            return View(employee);
-        }
-
-         public IActionResult Create()
-        {
-            ViewBag.Employees = _employeeService.GetAll();
-            return View();
+            List<EmployeeDto> employees = new List<EmployeeDto>();
+            EmployeeDto employee = new EmployeeDto()
+            {
+                FirstName = "Test",
+                Department = "departman"
+            };
+            employees.Add(employee);
             
+            return View(employees);
         }
 
-        [HttpPost]
-        public IActionResult Create(EmployeeDto employee)
+        // GET: EmployeeController/Details/5
+        public ActionResult Details(int id)
         {
-            var commandResult = _employeeService.Create(employee);
-            ViewBag.Employees = _employeeService.GetAll();
-            if (commandResult.IsSuccess)
+            return View();
+        }
+
+        // GET: EmployeeController/Create
+        public ActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: EmployeeController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(IFormCollection collection)
+        {
+            try
             {
-                TempData[Keys.ResultMessage] = commandResult.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
+            catch
             {
-                ViewBag.ResultMessage = commandResult.Message;
                 return View();
             }
         }
-        public IActionResult Update(int id)
+
+        // GET: EmployeeController/Edit/5
+        public ActionResult Edit(int id)
         {
-            var updateId = _employeeService.GetById(id);
-            if (updateId != null)
-            {
-                
-                return View(updateId);
-            }
-            else
-            {
-                TempData[Keys.ErrorMessage] = "Kayıt Bulunamadı";
-                return RedirectToAction("Index");
-            }
+            return View();
         }
 
+        // POST: EmployeeController/Edit/5
         [HttpPost]
-        public IActionResult Update(EmployeeDto employee)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(int id, IFormCollection collection)
         {
-
-            var commandResult = _employeeService.Update(employee);
-            if (commandResult.IsSuccess)
+            try
             {
-                TempData[Keys.ResultMessage] = commandResult.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
+            catch
             {
-                ViewBag.ResultMessage = commandResult.Message;
-                return View(employee);
-            }
-        }
-        public IActionResult Delete(int id)
-        {
-            var employee = _employeeService.GetById(id);
-            if (employee != null)
-            {
-                return View(employee);
-            }
-            else
-            {
-                TempData["ErrorMessage"] = "Kayıt Bulunamadı";
-                return RedirectToAction("Index");
+                return View();
             }
         }
 
+        // GET: EmployeeController/Delete/5
+        public ActionResult Delete(int id)
+        {
+            return View();
+        }
+
+        // POST: EmployeeController/Delete/5
         [HttpPost]
-        public IActionResult Delete(EmployeeDto employee)
+        [ValidateAntiForgeryToken]
+        public ActionResult Delete(int id, IFormCollection collection)
         {
-            var commandResult = _employeeService.Delete(employee);
-            if (commandResult.IsSuccess)
+            try
             {
-                TempData["ResultMessage"] = commandResult.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }
-            else
+            catch
             {
-                ViewBag.ResultMessage = commandResult.Message;
-                return View(employee);
+                return View();
             }
         }
-
     }
 }
