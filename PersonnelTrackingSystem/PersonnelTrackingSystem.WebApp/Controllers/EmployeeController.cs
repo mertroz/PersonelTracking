@@ -1,89 +1,90 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Employees;
+using PersonnelTrackingSystem.WebApp.Helper;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
     public class EmployeeController : Controller
     {
-        public ActionResult Index()
+        private readonly EmployeeService _employeeService = new EmployeeService();
+        public IActionResult Index()
         {
-            List<EmployeeDto> employees = new List<EmployeeDto>();
-            EmployeeDto employee = new EmployeeDto()
-            {
-                FirstName = "Test",
-                Department = "departman"
-            };
-            employees.Add(employee);
-            
-            return View(employees);
+            var employee = _employeeService.GetAll();
+            return View(employee);
         }
 
-        // GET: EmployeeController/Details/5
-        public ActionResult Details(int id)
+        public IActionResult Create()
         {
+
             return View();
         }
 
-        // GET: EmployeeController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: EmployeeController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public IActionResult Create(EmployeeDto employee)
         {
-            try
+           
+
+            var result = _employeeService.Create(employee);
+            if (result.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = result.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
+               
+                TempData["ResultMessage"] = result.Message;
                 return View();
             }
         }
 
-        // GET: EmployeeController/Edit/5
-        public ActionResult Edit(int id)
+        public IActionResult Delete(EmployeeDto employee)
         {
-            return View();
+            var commandResult = _employeeService.Delete(employee);
+            if (commandResult.IsSuccess)
+            {
+                TempData["ResultMessage"] = commandResult.Message;
+            }
+            else
+            {
+                ViewBag.ResultMessage = commandResult.Message;
+            }
+            return RedirectToAction("Index");
         }
 
-        // POST: EmployeeController/Edit/5
+        public IActionResult Update(int id)
+        {
+            var employee = _employeeService.GetById(id);
+
+
+            if (employee != null)
+            {
+                return View(employee);
+            }
+            else
+            {
+                TempData[Keys.ErrorMessage] = "Kayıt Bulunamadı";
+                return RedirectToAction("Index");
+            }
+
+        }
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public IActionResult Update(EmployeeDto employee)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+            var commandResult = _employeeService.Update(employee);
 
-        // GET: EmployeeController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: EmployeeController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                
+                TempData["ResultMessage"] = commandResult.Message;
+                return View(employee);
             }
         }
     }
