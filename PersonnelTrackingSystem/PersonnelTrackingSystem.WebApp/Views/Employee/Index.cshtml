@@ -5,10 +5,78 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+
+<h1>Yeni Personel Tanımlama</h1>
+<div class="row">
+    <div class="col-12">
+        <div class="float-end">
+            <a class="btn btn-outline-primary btn-sm" asp-controller="Employee" asp-action="Create">Yeni Personel Ekle</a>
+        </div>
+        <div class="float-start col-4">
+            @if (TempData.ContainsKey("ResultMessage"))
+            {
+                <div class="alert alert-success">
+                    @TempData["ResultMessage"]
+                </div>
+            }
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Adı</th>
+                    <th>Soy Adı</th>
+                    <th>TC Kimlik</th>
+                    <th>Sicil No</th>
+                    <th>Cep Telefonu</th>
+                    <th>Ev Telefonu</th>
+                    <th>Adres</th>
+                    <th>Departman</th>
+                    <th>İşe Giriş Tarihi</th>
+                    <th>Cinsiyet</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var employee in Model)
+                {
+                    <div>
+
+                    <tr>
+                        <td>@employee.Id</td>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.Identity</td>
+                        <td>@employee.RegistrationNumber</td>
+                        <td>@employee.MobilePhone</td>
+                        <td>@employee.HomePhone</td>
+                        <td>@employee.Address</td>
+                        <td>@employee.Department</td>
+                        <td>@employee.HiringDate</td>
+                        <td>@employee.Gender</td>
+
+                        <td class="text-end">
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="Employees" asp-action="Update" asp-route-id="@employee.Id">Düzenle </a>
+                            <form asp-action="Delete" method="post" class="delete-form d-inline-block">
+                                <input type="hidden" value="@employee.Id" name="id">
+                                <button class="btn btn-outline-danger btn-sm">Sil</button>
+                            </form>
+                        </td>
+                    </tr>
+        </div>
+                }
+    </tbody>
+    </table>
+</div>
+</div>
+
+
+
+
+@*<h1>Index</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Yeni Personel Ekle</a>
 </p>
 <table class="table">
     <thead>
@@ -94,3 +162,4 @@
 }
     </tbody>
 </table>
+*@
