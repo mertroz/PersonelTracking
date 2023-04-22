@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Employees;
 using PersonnelTrackingSystem.WebApp.Helper;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize, Authorize(Roles = "Admin")]
     public class EmployeeController : Controller
     {
         private readonly EmployeeService _employeeService = new EmployeeService();
@@ -16,15 +18,17 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
 
         public IActionResult Create()
         {
+            EmployeeDto newEmployee = new EmployeeDto()
+            {
+                HiringDate = DateTime.Now.Date
+            };
 
-            return View();
+            return View(newEmployee);
         }
 
         [HttpPost]
         public IActionResult Create(EmployeeDto employee)
         {
-           
-
             var result = _employeeService.Create(employee);
             if (result.IsSuccess)
             {

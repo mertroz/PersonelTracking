@@ -9,10 +9,12 @@ using System.Threading.Tasks;
 
 namespace PersonnelTrackingSystem.DataAccess
 {
-    public class PersonnelTrackingSystemContext: DbContext
+    public class PersonnelTrackingSystemContext : DbContext
     {
         private const string ConnectionString =
-            "Server=DESKTOP-7LSJ7BF\\SRVMERT;Database=PersonnelTrackingSystem;Integrated Security=true; TrustServerCertificate=True";
+            //"Server=DESKTOP-7LSJ7BF\\SRVMERT;Database=PersonnelTrackingSystem;Integrated Security=true; TrustServerCertificate=True";
+            "Server=DESKTOP-0B79EEC\\SQLEXPRESS;Database=PersonnelTrackingSystem;Integrated Security=true; TrustServerCertificate=True";
+
 
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Shift> Shifts { get; set; }
@@ -40,7 +42,7 @@ namespace PersonnelTrackingSystem.DataAccess
             modelBuilder.ApplyConfiguration(new PermissionConfiguration());
             modelBuilder.ApplyConfiguration(new CostConfiguration());
             modelBuilder.ApplyConfiguration(new MaterialConfiguration());
-          
+
 
         }
     }

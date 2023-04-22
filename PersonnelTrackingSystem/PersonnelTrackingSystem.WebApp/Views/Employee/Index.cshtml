@@ -40,8 +40,6 @@
             <tbody>
                 @foreach (var employee in Model)
                 {
-                    <div>
-
                     <tr>
                         <td>@employee.Id</td>
                         <td>@employee.FirstName</td>
@@ -56,18 +54,17 @@
                         <td>@employee.Gender</td>
 
                         <td class="text-end">
-                            <a class="btn btn-outline-primary btn-sm" asp-controller="Employees" asp-action="Update" asp-route-id="@employee.Id">Düzenle </a>
-                            <form asp-action="Delete" method="post" class="delete-form d-inline-block">
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="Employee" asp-action="Update" asp-route-id="@employee.Id">Düzenle </a>
+                            <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu personeli silmek istediğinize emin misiniz?');">
                                 <input type="hidden" value="@employee.Id" name="id">
                                 <button class="btn btn-outline-danger btn-sm">Sil</button>
                             </form>
                         </td>
                     </tr>
-        </div>
                 }
-    </tbody>
-    </table>
-</div>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 

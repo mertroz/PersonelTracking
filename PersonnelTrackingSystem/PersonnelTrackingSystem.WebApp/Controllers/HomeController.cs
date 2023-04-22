@@ -1,21 +1,24 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.WebApp.Models;
+using System.Data;
 using System.Diagnostics;
+using System.Security.Claims;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize]
+
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+        private readonly EmployeeService _employeeService = new EmployeeService();
 
         public IActionResult Index()
         {
-            return View();
+            DashboardViewModel model=new DashboardViewModel();
+            model.EmployeeCount=_employeeService.GetAll().Count();
+            return View(model);
         }
 
         public IActionResult Privacy()

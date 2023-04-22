@@ -20,4 +20,8 @@
     <ProjectReference Include="..\PersonnelTrackingSystem\PersonnelTrackingSystem.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Account\" />
+  </ItemGroup>
+
 </Project>

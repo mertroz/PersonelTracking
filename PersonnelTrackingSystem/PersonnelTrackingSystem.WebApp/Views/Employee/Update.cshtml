@@ -11,7 +11,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Update">
+@*        <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Id" class="control-label"></label>
@@ -72,6 +72,92 @@
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
+*@
+        <form asp-action="Update">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="card card-body border-0 shadow mb-4">
+                    <h2 class="h5 mb-4">Personel Bilgileri</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="first_name">İsim</label>
+                                <input asp-for="FirstName" class="form-control" id="first_name" type="text" placeholder="Lütfen Giriniz" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="last_name">Soy İsim</label>
+                                <input asp-for="LastName" class="form-control" id="last_name" type="text" placeholder="Lütfen Giriniz" required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="identity">TC Kimlik</label>
+                                <input asp-for="Identity" class="form-control" id="identity" type="text" placeholder="Lütfen Giriniz" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div>
+                                <label for="registration_number">Sicil No</label>
+                                <input asp-for="RegistrationNumber" class="form-control" id="registration_number" type="text" placeholder="Lütfen Giriniz" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="mobile_phone">Cep Telefon</label>
+                            <input asp-for="MobilePhone" class="form-control" id="mobile_phone" type="tel" placeholder="+90-555 555 5555" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="home_phone">Ev Telefon</label>
+                            <input asp-for="HomePhone" class="form-control" id="home_phone" type="number" type="tel" placeholder="+90-212 222 2222" required>
+                        </div>
+                    </div>
+
+                    <div class="row align-items-center">
+                        <div class="col-md-6 mb-3">
+                            <div class="form-group">
+                                <label asp-for="HiringDate" class="control-label"></label>
+                                <input asp-for="HiringDate" class="form-control" />
+                                <span asp-validation-for="HiringDate" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="gender">Cinsiyet</label>
+                            <select asp-for="Gender" class="form-select mb-0" id="gender" aria-label="Gender select example">
+                                <option selected>Gender</option>
+                                <option value="1">Female</option>
+                                <option value="2">Male</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8 mb-3">
+                            <div class="form-group">
+                                <label for="address">Address</label>
+                                <input asp-for="Address" class="form-control" id="address" type="text" placeholder="Lütfen Giriniz" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 mb-3">
+                            <div class="form-group">
+                                <label for="department">Departman</label>
+                                <input asp-for="Department" class="form-control" id="department" type="department" placeholder="Lütfen Giriniz" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
     </div>
 </div>
 
