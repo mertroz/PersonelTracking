@@ -48,6 +48,27 @@ namespace PersonnelTrackingSystem.Business.Servicess
                 return null;
             }
         }
+        public SalaryCalculatorDto GetByEmployeeId(int employeeId)
+        {
+            try
+            {
+                var entity = _context.SalaryCalculators.FirstOrDefault(x=>x.EmployeeId==employeeId);
+                if (entity != null)
+                {
+                    var dto = MapToDto(entity);
+                    return dto;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+                return null;
+            }
+        }
         public CommandResult Create(SalaryCalculatorDto salaryCalculatorDto)
         {
             if (salaryCalculatorDto == null)

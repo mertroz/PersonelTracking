@@ -1,0 +1,81 @@
+﻿@model IEnumerable<SalaryPaymentViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h5>Maaş Ödeme</h5>
+<a asp-action="AllMonthPayment" asp-controller="Shift" class="btn btn-lg btn-primary" type="button">Toplu Maaş Girişi</a>
+
+
+<div class="float-start col-4">
+    @if (TempData.ContainsKey("ResultMessage"))
+    {
+        <div class="alert alert-success">
+            @TempData["ResultMessage"]
+        </div>
+    }
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Personel Adı
+            </th>
+            <th>
+                Tutar
+            </th>
+            <th>
+                Ay
+            </th>
+            <th>
+                Yıl
+            </th>
+            <th>
+                Ödendi
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @item.EmployeeName
+                </td>
+                <td>
+                    @item.Amount
+                </td>
+                <td>
+                    @item.Month
+                </td>
+                <td>
+                    @item.Year
+                </td>
+                <td>
+                    @if (item.Paid)
+                    {
+                        <label>Ödendi</label>
+                    }
+                    @if(!item.Paid){
+                        <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu personeli silmek istediğinize emin misiniz?');">
+                            <input type="hidden" value="@item.Id" name="id">
+                            <button class="btn btn-outline-danger btn-sm">ÖDE</button>
+                        </form>
+                    }
+                </td>
+                <td class="text-end">
+                    <a class="btn btn-outline-primary btn-sm" asp-controller="Employee" asp-action="Update" asp-route-id="@item.Id">Düzenle </a>
+                    <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu ödeme kaydını silmek istediğinize emin misiniz?');">
+                        <input type="hidden" value="@item.Id" name="id">
+                        <button class="btn btn-outline-danger btn-sm">Sil</button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

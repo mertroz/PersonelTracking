@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.SalaryCalculators;
+using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
 using System.Data;
 
@@ -16,15 +17,15 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: SalaryController
         public ActionResult Index()
         {
-            List<SalaryViewModel> model = _salaryCalculatorService.GetAll().Select(x=> new SalaryViewModel
+            List<SalaryViewModel> model = _salaryCalculatorService.GetAll().Select(x => new SalaryViewModel
             {
                 Bonus = x.Bonus,
                 EmployeeId = x.EmployeeId,
                 EmployeeName = _employeeService.GetFullNameById(x.EmployeeId),
-                Id=x.Id,
+                Id = x.Id,
                 MealAllowance = x.MealAllowance,
                 Salary = x.Salary,
-                TransportationAllowance = x.TransportationAllowance 
+                TransportationAllowance = x.TransportationAllowance
             }).ToList();
             return View(model);
         }
@@ -38,20 +39,46 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: SalaryController/Create
         public ActionResult Create()
         {
-            return View();
+            SalaryCalculatorViewModel salaryCalculatorViewModel = new SalaryCalculatorViewModel();
+            salaryCalculatorViewModel.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+
+            return View(salaryCalculatorViewModel);
         }
 
         // POST: SalaryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(SalaryCalculatorViewModel model)
         {
-            try
+            SalaryCalculatorDto salaryCalculatorDto = _salaryCalculatorService.GetByEmployeeId(model.EmployeeId);
+            if (salaryCalculatorDto!=null)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = "Bu kullanıcıya ait maaş bilgisi zaten mevcut.";
+                return View();
             }
-            catch
+
+            salaryCalculatorDto = new SalaryCalculatorDto();
+            salaryCalculatorDto.Id = model.Id;
+            salaryCalculatorDto.EmployeeId = model.EmployeeId;
+            salaryCalculatorDto.Bonus = model.Bonus;
+            salaryCalculatorDto.TransportationAllowance = model.TransportationAllowance;
+            salaryCalculatorDto.Salary = model.Salary;
+
+
+            var result = _salaryCalculatorService.Create(salaryCalculatorDto);
+            if (result.IsSuccess)
             {
+                TempData["ResultMessage"] = result.Message;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+
+                TempData["ResultMessage"] = result.Message;
                 return View();
             }
         }

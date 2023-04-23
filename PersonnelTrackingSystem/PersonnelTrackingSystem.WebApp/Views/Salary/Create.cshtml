@@ -1,0 +1,53 @@
+﻿@model PersonnelTrackingSystem.WebApp.Models.SalaryCalculatorViewModel
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Create</h1>
+
+<h4>SalaryCalculatorViewModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input asp-for="Salary" class="form-control" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MealAllowance" class="control-label"></label>
+                <input asp-for="MealAllowance" class="form-control" />
+                <span asp-validation-for="MealAllowance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TransportationAllowance" class="control-label"></label>
+                <input asp-for="TransportationAllowance" class="form-control" />
+                <span asp-validation-for="TransportationAllowance" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Bonus" class="control-label"></label>
+                <input asp-for="Bonus" class="form-control" />
+                <span asp-validation-for="Bonus" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                    <label asp-for="Employees" class="control-label"></label>
+                    <select asp-for="EmployeeId" class="form-select"
+                            asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
+                        <option>Please select one</option>
+                    </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
