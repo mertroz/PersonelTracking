@@ -129,5 +129,25 @@ namespace PersonnelTrackingSystem.Business.Servicess
             return dto;
         }
 
+        public string GetRoleNameById(int id)
+        {
+            try
+            {
+                var entity = _context.Roles.Find(id);
+                if (entity != null)
+                {
+                    return entity.Name;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+                return null;
+            }
+        }
     }
 }
