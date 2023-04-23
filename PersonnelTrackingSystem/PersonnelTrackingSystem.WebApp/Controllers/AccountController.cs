@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using NuGet.Protocol.Plugins;
-using PersonnelTrackingSystem.User;
+using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
 using System.Security.Claims;
 

@@ -14,6 +14,7 @@ namespace PersonnelTrackingSystem.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<SalaryPayment> builder)
         {
+            builder.ToTable("SalaryPayment");
             builder
             .HasKey(s => s.Id);
 

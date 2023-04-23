@@ -15,7 +15,7 @@ namespace PersonnelTrackingSystem.DataAccess.Configuration
         {
             {
                 
-                builder.ToTable("Permissions");
+                builder.ToTable("Permission");
 
                 
                 builder.HasKey(p => p.Id);

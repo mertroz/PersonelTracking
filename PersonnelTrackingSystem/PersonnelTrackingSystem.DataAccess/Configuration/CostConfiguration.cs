@@ -13,7 +13,7 @@ namespace PersonnelTrackingSystem.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<Cost> builder)
         {
-            builder.ToTable("Costs");
+            builder.ToTable("Cost");
 
             
             builder.HasKey(c => c.Id);

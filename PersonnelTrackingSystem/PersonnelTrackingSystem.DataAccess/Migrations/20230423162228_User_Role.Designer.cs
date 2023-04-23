@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonnelTrackingSystem.DataAccess;
 
@@ -11,9 +12,11 @@ using PersonnelTrackingSystem.DataAccess;
 namespace PersonnelTrackingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(PersonnelTrackingSystemContext))]
-    partial class PersonnelTrackingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20230423162228_User_Role")]
+    partial class User_Role
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace PersonnelTrackingSystem.DataAccess.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Cost", (string)null);
+                    b.ToTable("Costs", (string)null);
                 });
 
             modelBuilder.Entity("PersonnelTrackingSystem.Domain.Employee", b =>
@@ -133,7 +136,7 @@ namespace PersonnelTrackingSystem.DataAccess.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Material", (string)null);
+                    b.ToTable("Materials");
                 });
 
             modelBuilder.Entity("PersonnelTrackingSystem.Domain.Permission", b =>
@@ -157,7 +160,7 @@ namespace PersonnelTrackingSystem.DataAccess.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("Permission", (string)null);
+                    b.ToTable("Permissions", (string)null);
                 });
 
             modelBuilder.Entity("PersonnelTrackingSystem.Domain.Role", b =>
@@ -210,7 +213,7 @@ namespace PersonnelTrackingSystem.DataAccess.Migrations
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("SalaryCalculator", (string)null);
+                    b.ToTable("SalaryCalculators", (string)null);
                 });
 
             modelBuilder.Entity("PersonnelTrackingSystem.Domain.SalaryPayment", b =>
@@ -221,20 +224,14 @@ namespace PersonnelTrackingSystem.DataAccess.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
-
-                    b.Property<bool>("Paid")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EmployeeId");
 
-                    b.ToTable("SalaryPayment", (string)null);
+                    b.ToTable("SalaryPayments");
                 });
 
             modelBuilder.Entity("PersonnelTrackingSystem.Domain.Shift", b =>

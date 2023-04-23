@@ -15,6 +15,7 @@ namespace PersonnelTrackingSystem.DataAccess.Configuration
     {
         public void Configure(EntityTypeBuilder<Material> builder)
         {
+            builder.ToTable("Material");
             builder.HasKey(m => m.Id);
 
             builder.Property(m => m.Request)

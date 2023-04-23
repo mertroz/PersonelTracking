@@ -4,14 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace PersonnelTrackingSystem.User
+namespace PersonnelTrackingSystem.Roles
 {
-    public class UserProfileViewModel
+    public class RoleDto
     {
-        public string EmailAddress { get; set; }
+        public int Id { get; set; }
 
         public string Name { get; set; }
-
-        public string ProfileImage { get; set; }
     }
 }
