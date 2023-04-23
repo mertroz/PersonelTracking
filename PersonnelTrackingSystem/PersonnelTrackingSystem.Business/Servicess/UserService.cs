@@ -134,5 +134,27 @@ namespace PersonnelTrackingSystem.Business.Servicess
             return dto;
         }
 
+        public UserDto Login(string username, string password)
+        {
+            try
+            {
+                var entity = _context.Users.FirstOrDefault(x=>x.UserName==username && x.Password==password);
+
+                if (entity != null)
+                {
+                    var dto = MapToDto(entity);
+                    return dto;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+                return null;
+            }
+        }
     }
 }
