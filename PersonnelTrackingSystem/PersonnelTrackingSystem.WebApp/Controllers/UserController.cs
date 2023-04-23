@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Domain;
+using PersonnelTrackingSystem.Employees;
 using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
 
@@ -15,14 +16,16 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: UserController
         public ActionResult Index()
         {
-            var users = _userService.GetAll();
+            var users = _userService.GetAll().Select(s => new UserViewModel
+            {
+                Password = s.Password,
+                UserName = s.UserName,
+                RoleId = s.RoleId,
+                EmployeeName = _employeeService.GetFullNameById(s.EmployeeId),
+                RoleName=_roleService.GetRoleNameById(s.RoleId),
+                Id = s.Id
+            });
             return View(users);
-        }
-
-        // GET: UserController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: UserController/Create
@@ -34,10 +37,10 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id
             }).ToList();
-            userViewModel.Roles = _roleService.GetAll().Select(x => new RoleViewModel 
-            { 
+            userViewModel.Roles = _roleService.GetAll().Select(x => new RoleViewModel
+            {
                 Id = x.Id,
-            Name= x.Name
+                Name = x.Name
             }).ToList();
 
             return View(userViewModel);
@@ -45,15 +48,15 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
 
         // POST: UserController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Create(UserViewModel user)
         {
-            UserDto userDto = new UserDto() { 
-            Id= user.Id,
-            EmployeeId= user.EmployeeId,
-            Password= user.Password,
-            RoleId= user.RoleId,
-            UserName = user.UserName
+            UserDto userDto = new UserDto()
+            {
+                Id = user.Id,
+                EmployeeId = user.EmployeeId,
+                Password = user.Password,
+                RoleId = user.RoleId,
+                UserName = user.UserName
             };
 
             var result = _userService.Create(userDto);
@@ -73,43 +76,59 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: UserController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            UserViewModel model = new UserViewModel();
+            model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+            model.Roles = _roleService.GetAll().Select(x => new RoleViewModel
+            {
+                Id = x.Id,
+                Name = x.Name
+            }).ToList();
+
+            UserDto userDto=_userService.GetById(id);
+            model.UserName = userDto.UserName;
+            model.EmployeeId = userDto.EmployeeId;
+            model.Password = userDto.Password;
+            model.RoleId = userDto.RoleId;
+            
+            return View(model);
         }
 
         // POST: UserController/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(UserDto user)
         {
-            try
+            var commandResult = _userService.Update(user);
+
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+
+                TempData["ResultMessage"] = commandResult.Message;
+                return View(user);
             }
         }
 
         // GET: UserController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(UserDto user)
         {
-            return View();
-        }
-
-        // POST: UserController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
+            var commandResult = _userService.Delete(user);
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
             }
-            catch
+            else
             {
-                return View();
+                ViewBag.ResultMessage = commandResult.Message;
             }
+            return RedirectToAction("Index");
         }
     }
 }

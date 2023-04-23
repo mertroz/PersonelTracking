@@ -17,5 +17,7 @@ namespace PersonnelTrackingSystem.WebApp.Models
         public string Password { get; set; }
         public List<EmployeeViewModel> Employees { get; set; }
         public List<RoleViewModel> Roles { get; set; }
+        public object EmployeeName { get; internal set; }
+        public object RoleName { get; internal set; }
     }
 }
