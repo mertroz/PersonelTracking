@@ -50,6 +50,28 @@ namespace PersonnelTrackingSystem.Business.Servicess
             }
         }
 
+        public string GetFullNameById(int id)
+        {
+            try
+            {
+                var entity = _context.Employees.Find(id);
+                if (entity != null)
+                {
+                    string fullName=entity.FirstName + ' ' + entity.LastName;
+                    return fullName;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                Trace.TraceError(ex.ToString());
+                return null;
+            }
+        }
+
         public CommandResult Create(EmployeeDto employeeDto)
         {
             if (employeeDto == null)

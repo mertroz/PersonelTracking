@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PersonnelTrackingSystem.Business.Servicess;
+using PersonnelTrackingSystem.SalaryCalculators;
+using PersonnelTrackingSystem.WebApp.Models;
 using System.Data;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
@@ -8,10 +11,22 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     [Authorize]
     public class SalaryController : Controller
     {
+        SalaryCalculatorService _salaryCalculatorService = new SalaryCalculatorService();
+        EmployeeService _employeeService = new EmployeeService();
         // GET: SalaryController
         public ActionResult Index()
         {
-            return View();
+            List<SalaryViewModel> model = _salaryCalculatorService.GetAll().Select(x=> new SalaryViewModel
+            {
+                Bonus = x.Bonus,
+                EmployeeId = x.EmployeeId,
+                EmployeeName = _employeeService.GetFullNameById(x.EmployeeId),
+                Id=x.Id,
+                MealAllowance = x.MealAllowance,
+                Salary = x.Salary,
+                TransportationAllowance = x.TransportationAllowance 
+            }).ToList();
+            return View(model);
         }
 
         // GET: SalaryController/Details/5
