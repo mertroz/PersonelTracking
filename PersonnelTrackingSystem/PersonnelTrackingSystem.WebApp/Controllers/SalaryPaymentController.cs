@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
+using PersonnelTrackingSystem.Domain;
+using PersonnelTrackingSystem.Employees;
+using PersonnelTrackingSystem.SalaryPayments;
 using PersonnelTrackingSystem.WebApp.Models;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
@@ -9,6 +12,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     {
         SalaryPaymentService _salaryPaymentService = new SalaryPaymentService();
         EmployeeService _employeeService = new EmployeeService();
+        SalaryCalculatorService _salaryCalculatorService = new SalaryCalculatorService();
         // GET: SalaryPaymentController
         public ActionResult Index()
         {
@@ -63,28 +67,112 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
 
 
         // GET: SalaryPaymentController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
-
-        // GET: SalaryPaymentController/Create
-        public ActionResult Create()
+        public ActionResult AllMonthPayment()
         {
             return View();
         }
 
         // POST: SalaryPaymentController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult AllMonthPayment(SalaryPaymentSaveModel model)
         {
-            try
+            var salaryPayment = _salaryPaymentService.GetAll().Where(x => x.Month == model.Month && x.Year == model.Year).ToList();
+            if (salaryPayment.Count > 0)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = "Bu tarih için girilmiş ödeme kayıtları mevcut toplu kayıt yapamazsınız!!";
+                return View();
             }
-            catch
+            else
             {
+                var employees = _employeeService.GetAll();
+
+                foreach (var employee in employees)
+                {
+                    var salaryCalc = _salaryCalculatorService.GetByEmployeeId(employee.Id);
+                    if (salaryCalc != null)
+                    {
+                        var amount = salaryCalc.TransportationAllowance + salaryCalc.Salary + salaryCalc.MealAllowance + salaryCalc.Bonus;
+                        SalaryPaymentDto salaryPaymentDto = new SalaryPaymentDto()
+                        {
+                            Amount = amount,
+                            EmployeeId = employee.Id,
+                            Month = model.Month,
+                            Year = model.Year,
+                            Paid = false
+                        };
+                        var result = _salaryPaymentService.Create(salaryPaymentDto);
+                    }
+
+                }
+
+                TempData["ResultMessage"] = "Ödeme kayıtları başarıyla yapıldı.";
+                return RedirectToAction("Index");
+            }
+
+
+
+        }
+
+        // GET: SalaryPaymentController/Delete/5
+        public IActionResult Delete(int id)
+        {
+            var salaryPayment = _salaryPaymentService.GetById(id);
+            if (salaryPayment != null)
+            {
+                var commandResult = _salaryPaymentService.Delete(salaryPayment);
+                if (commandResult.IsSuccess)
+                {
+                    TempData["ResultMessage"] = commandResult.Message;
+                }
+                else
+                {
+                    ViewBag.ResultMessage = commandResult.Message;
+                }
+            }
+            else
+            {
+                TempData["ResultMessage"] = "Kayıt bulunamadı";
+            }
+            return RedirectToAction("Index");
+
+        }
+
+        // GET: SalaryPaymentController/Create
+        public ActionResult Create()
+        {
+            SalaryPaymentViewModel model = new SalaryPaymentViewModel();
+            model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+            return View();
+        }
+
+        // POST: SalaryPaymentController/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(SalaryPaymentViewModel model)
+        {
+            var salaryCalc = _salaryCalculatorService.GetByEmployeeId(model.EmployeeId);
+            if (salaryCalc != null)
+            {
+                var amount = salaryCalc.TransportationAllowance + salaryCalc.Salary + salaryCalc.MealAllowance + salaryCalc.Bonus;
+                SalaryPaymentDto salaryPaymentDto = new SalaryPaymentDto()
+                {
+                    Amount = amount,
+                    EmployeeId = model.EmployeeId,
+                    Month = model.Month,
+                    Year = model.Year,
+                    Paid = false
+                };
+                var result = _salaryPaymentService.Create(salaryPaymentDto);
+                TempData["ResultMessage"] = result.Message;
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                TempData["ResultMessage"] = "Bu kullanıcı için maaş bilgileri girilmesi gerekiyor.";
                 return View();
             }
         }
@@ -110,25 +198,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: SalaryPaymentController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: SalaryPaymentController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
+        
     }
 }

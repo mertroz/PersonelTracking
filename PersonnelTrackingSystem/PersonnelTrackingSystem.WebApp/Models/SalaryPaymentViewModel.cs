@@ -1,4 +1,6 @@
-﻿namespace PersonnelTrackingSystem.WebApp.Models
+﻿using PersonnelTrackingSystem.Employees;
+
+namespace PersonnelTrackingSystem.WebApp.Models
 {
     public class SalaryPaymentViewModel
     {
@@ -10,5 +12,6 @@
         public int Year { get; set; }
         public bool Paid { get; set; }
         public string MonthName { get; internal set; }
+        public List<EmployeeViewModel> Employees { get; set; }
     }
 }

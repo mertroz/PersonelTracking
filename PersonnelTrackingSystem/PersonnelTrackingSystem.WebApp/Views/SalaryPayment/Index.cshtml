@@ -6,8 +6,9 @@
 }
 
 <h5>Maaş Ödeme</h5>
-<a asp-action="AllMonthPayment" asp-controller="Shift" class="btn btn-lg btn-primary" type="button">Toplu Maaş Girişi</a>
+<a asp-action="AllMonthPayment" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Toplu Maaş Girişi</a>
 
+<a asp-action="Create" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Personel Maaş Girişi</a>
 
 <div class="float-start col-4">
     @if (TempData.ContainsKey("ResultMessage"))
@@ -60,7 +61,7 @@
                         <label>Ödendi</label>
                     }
                     @if(!item.Paid){
-                        <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu personeli silmek istediğinize emin misiniz?');">
+                        <form asp-action="Pay" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu personelin ödemesini yapmak istediğinize emin misiniz?');">
                             <input type="hidden" value="@item.Id" name="id">
                             <button class="btn btn-outline-danger btn-sm">ÖDE</button>
                         </form>

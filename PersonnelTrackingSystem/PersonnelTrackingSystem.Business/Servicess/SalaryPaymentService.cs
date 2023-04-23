@@ -112,7 +112,10 @@ namespace PersonnelTrackingSystem.Business.Servicess
                 {
                     Id = salaryPayment.Id,
                     EmployeeId = salaryPayment.EmployeeId,
-
+                    Amount = salaryPayment.Amount,
+                    Month = salaryPayment.Month,
+                    Year = salaryPayment.Year,  
+                    Paid   = salaryPayment.Paid
                 };
             }
             return dto;
@@ -126,7 +129,11 @@ namespace PersonnelTrackingSystem.Business.Servicess
                 return new SalaryPayment()
                 {
                     Id = salaryPaymentDto.Id,
-                    EmployeeId = salaryPaymentDto.EmployeeId
+                    EmployeeId = salaryPaymentDto.EmployeeId,
+                    Year = salaryPaymentDto.Year,
+                    Paid = salaryPaymentDto.Paid,
+                    Month = salaryPaymentDto.Month,
+                    Amount = salaryPaymentDto.Amount
                 };
             }
             return dto;
