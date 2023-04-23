@@ -42,6 +42,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                         //new Claim("FullName", user.FullName),
                         //new Claim(ClaimTypes.Role, "Administrator"),
                     };
+                    
 
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 

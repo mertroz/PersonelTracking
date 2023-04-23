@@ -22,6 +22,13 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(shifts);
 
         }
+
+        public ActionResult MyShifts()
+        {
+            List<ShiftDto> shifts = _shiftService.GetAll().ToList();
+            return View(shifts);
+
+        }
         public ActionResult Index()
         {
             return View();
