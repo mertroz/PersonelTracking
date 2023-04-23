@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
+using PersonnelTrackingSystem.Domain;
 using PersonnelTrackingSystem.SalaryCalculators;
 using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
@@ -28,12 +29,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 TransportationAllowance = x.TransportationAllowance
             }).ToList();
             return View(model);
-        }
-
-        // GET: SalaryController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
         }
 
         // GET: SalaryController/Create
@@ -86,43 +81,57 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: SalaryController/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            SalaryCalculatorViewModel model = new SalaryCalculatorViewModel();
+            SalaryCalculatorDto salaryCalculator = _salaryCalculatorService.GetById(id);
+
+            model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+
+            model.Salary = salaryCalculator.Salary;
+            model.EmployeeId = salaryCalculator.EmployeeId;
+            model.TransportationAllowance = salaryCalculator.TransportationAllowance;
+            model.Bonus = salaryCalculator.Bonus;
+            model.MealAllowance = salaryCalculator.MealAllowance;
+            return View(model);
         }
 
         // POST: SalaryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(SalaryCalculatorDto salaryCalculator)
         {
-            try
+            var commandResult = _salaryCalculatorService.Update(salaryCalculator);
+
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+
+                TempData["ResultMessage"] = commandResult.Message;
+                return View(salaryCalculator);
             }
         }
 
         // GET: SalaryController/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(SalaryCalculatorDto salaryCalculator)
         {
-            return View();
+            var commandResult = _salaryCalculatorService.Delete(salaryCalculator);
+            if (commandResult.IsSuccess)
+            {
+                TempData["ResultMessage"] = commandResult.Message;
+            }
+            else
+            {
+                ViewBag.ResultMessage = commandResult.Message;
+            }
+            return RedirectToAction("Index");
         }
 
-        // POST: SalaryController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
     }
 }
