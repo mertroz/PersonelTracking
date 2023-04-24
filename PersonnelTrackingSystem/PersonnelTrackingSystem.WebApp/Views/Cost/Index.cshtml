@@ -1,4 +1,4 @@
-﻿@model IEnumerable<UserViewModel>
+﻿@model IEnumerable<PersonnelTrackingSystem.WebApp.Models.CostViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
                     <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
                 </a>
             </li>
-            <li class="breadcrumb-item active" style="font-family:tahoma;font-weight:bold;font-size:125%" aria-current="page">Kullanıcı Listesi</li>
+            <li class="breadcrumb-item active" style="font-family:tahoma;font-weight:bold;font-size:125%" aria-current="page">Masraf Talep Listesi</li>
         </ol>
     </nav>
 </div>
@@ -21,7 +21,7 @@
 <div class="row">
     <div class="col-12">
         <div class="float-end">
-            <a class="btn btn-outline-primary btn-sm" asp-controller="User" asp-action="Create">Yeni Kullanıcı Ekle</a>
+            <a class="btn btn-outline-primary btn-sm" asp-controller="Cost" asp-action="Create">Yeni Masraf Talep Ekle</a>
         </div>
         <div class="float-start col-4">
             @if (TempData.ContainsKey("ResultMessage"))
@@ -35,23 +35,23 @@
             <thead>
                 <tr>
                     <th>Kullanıcı Adı</th>
-                    <th>Personel Adı</th>
-                    <th>Yetki</th>
+                    <th>Masraf Talep Tipi</th>
+                    <th>Masraf Tutarı</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var user in Model)
+                @foreach (var cost in Model)
                 {
                     <tr>
-                        <td>@user.UserName</td>
-                        <td>@user.EmployeeName</td>
-                        <td>@user.RoleName</td>
-                        
+                        <td>@cost.EmployeeName</td>
+                        <td>@cost.CostType</td>
+                        <td>@cost.CostAmount</td>
+
 
                         <td class="text-end">
-                            <a class="btn btn-outline-primary btn-sm" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Düzenle </a>
-                            <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">
-                                <input type="hidden" value="@user.Id" name="id">
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="Cost" asp-action="Edit" asp-route-id="@cost.Id">Düzenle </a>
+                            <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu masraf talebini silmek istediğinize emin misiniz?');">
+                                <input type="hidden" value="@cost.Id" name="id">
                                 <button class="btn btn-outline-danger btn-sm">Sil</button>
                             </form>
                         </td>
@@ -61,4 +61,3 @@
         </table>
     </div>
 </div>
-

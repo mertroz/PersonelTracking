@@ -1,0 +1,62 @@
+﻿@model PersonnelTrackingSystem.WebApp.Models.CostViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Masraf Talep Güncelleme</h1>
+
+<div class="row">
+    <div class="col-12 col-xl-8">
+        @if (TempData.ContainsKey("ResultMessage"))
+        {
+            <div class="alert alert-danger ">
+                @TempData["ResultMessage"]
+            </div>
+        }
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <div class="card card-body border-0 shadow mb-4">
+                    <h2 class="h5 mb-4">Masraf Talep Bilgileri</h2>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="CostType" class="control-label">Masraf Talep Tipi</label>
+                            <select asp-for="CostType" class="form-select mb-0" id="costType" aria-label="Masraf Talep Seçiniz">
+                                <option selected>Masraf Talep Seçiniz</option>
+                                <option value="1">Ulaşım</option>
+                                <option value="2">Kırtasiye</option>
+                                <option value="3">Konaklama</option>
+                                <option value="4">Elektronik</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="CostAmount" class="control-label">Masraf Talep Tutarı</label>
+                            <input asp-for="CostAmount" class="form-control" />
+                            <span asp-validation-for="CostAmount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
+                            <select asp-for="EmployeeId" class="form-select"
+                                    asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
+                                <option>Please select one</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-3">
+                        <button class="btn btn-gray-800 mt-2 animate-up-2" type="submit">Kaydet</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Listeye Geri Dön</a>
+</div>
+

@@ -68,7 +68,7 @@
                     }
                 </td>
                 <td class="text-end">
-                    <a class="btn btn-outline-primary btn-sm" asp-controller="Employee" asp-action="Update" asp-route-id="@item.Id">Düzenle </a>
+                    <a class="btn btn-outline-primary btn-sm" asp-controller="SalaryPayment" asp-action="Update" asp-route-id="@item.Id">Düzenle </a>
                     <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu ödeme kaydını silmek istediğinize emin misiniz?');">
                         <input type="hidden" value="@item.Id" name="id">
                         <button class="btn btn-outline-danger btn-sm">Sil</button>

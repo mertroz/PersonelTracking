@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
-using PersonnelTrackingSystem.Domain;
-using PersonnelTrackingSystem.Employees;
 using PersonnelTrackingSystem.SalaryPayments;
 using PersonnelTrackingSystem.WebApp.Models;
 
