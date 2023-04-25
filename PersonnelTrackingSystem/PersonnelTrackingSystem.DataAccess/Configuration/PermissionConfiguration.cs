@@ -24,11 +24,6 @@ namespace PersonnelTrackingSystem.DataAccess.Configuration
                 builder.Property(p => p.PermitDate)
                     .IsRequired();
 
-                
-                builder.Property(p => p.PermitTime)
-                    .IsRequired();
-
-                
                 builder.Property(p => p.EmployeeId)
                     .IsRequired();
 

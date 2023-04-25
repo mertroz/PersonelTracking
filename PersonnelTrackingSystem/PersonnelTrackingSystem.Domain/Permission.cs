@@ -11,9 +11,6 @@ namespace PersonnelTrackingSystem.Domain
         public int Id { get; set; }
 
         public DateTime PermitDate { get; set; }
-
-        public DateTime PermitTime { get; set; }
-
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
     }

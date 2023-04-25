@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
-using PersonnelTrackingSystem.Domain;
-using PersonnelTrackingSystem.Employees;
 using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
 
@@ -52,7 +49,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         {
             UserDto userDto = new UserDto()
             {
-                Id = user.Id,
                 EmployeeId = user.EmployeeId,
                 Password = user.Password,
                 RoleId = user.RoleId,

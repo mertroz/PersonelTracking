@@ -12,8 +12,6 @@ namespace PersonnelTrackingSystem.Permissions
 
         public DateTime PermitDate { get; set; }
 
-        public DateTime PermitTime { get; set; }
-
         public int EmployeeId { get; set; }
     }
 }

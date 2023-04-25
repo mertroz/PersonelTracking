@@ -113,8 +113,6 @@ namespace PersonnelTrackingSystem.Business.Servicess
                   Id = permission.Id,
                   EmployeeId = permission.EmployeeId,
                   PermitDate = permission.PermitDate,
-                  PermitTime = permission.PermitTime
-
                 };
             }
             return dto;
@@ -130,7 +128,6 @@ namespace PersonnelTrackingSystem.Business.Servicess
                     Id = permissionDto.Id,
                     EmployeeId = permissionDto.EmployeeId,
                     PermitDate = permissionDto.PermitDate,
-                    PermitTime= permissionDto.PermitTime
                 };
             }
             return dto;
