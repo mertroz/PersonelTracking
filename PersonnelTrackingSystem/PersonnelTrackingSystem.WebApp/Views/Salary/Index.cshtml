@@ -53,7 +53,7 @@
 
 
                         <td class="text-end">
-                            <a class="btn btn-outline-primary btn-sm" asp-controller="Salary" asp-action="Edit" asp-route-id="@salary.Id">Düzenle </a>
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="Salary" asp-action="Update" asp-route-id="@salary.Id">Düzenle </a>
                             <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu maaşı silmek istediğinize emin misiniz?');">
                                 <input type="hidden" value="@salary.Id" name="id">
                                 <button class="btn btn-outline-danger btn-sm">Sil</button>

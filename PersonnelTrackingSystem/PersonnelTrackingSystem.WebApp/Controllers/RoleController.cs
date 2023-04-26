@@ -38,17 +38,17 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: RoleController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: RoleController/Update/5
+        public ActionResult Update(int id)
         {
             RoleDto roleDto = _roleService.GetById(id);
 
             return View(roleDto);
         }
 
-        // POST: RoleController/Edit/5
+        // POST: RoleController/Update/5
         [HttpPost]
-        public ActionResult Edit(RoleDto role)
+        public ActionResult Update(RoleDto role)
         {
             var commandResult = _roleService.Update(role);
 

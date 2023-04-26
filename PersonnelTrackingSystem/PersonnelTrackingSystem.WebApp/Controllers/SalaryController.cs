@@ -78,8 +78,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: SalaryController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: SalaryController/Update/5
+        public ActionResult Update(int id)
         {
             SalaryCalculatorViewModel model = new SalaryCalculatorViewModel();
             SalaryCalculatorDto salaryCalculator = _salaryCalculatorService.GetById(id);
@@ -98,10 +98,10 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: SalaryController/Edit/5
+        // POST: SalaryController/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(SalaryCalculatorDto salaryCalculator)
+        public ActionResult Update(SalaryCalculatorDto salaryCalculator)
         {
             var commandResult = _salaryCalculatorService.Update(salaryCalculator);
 

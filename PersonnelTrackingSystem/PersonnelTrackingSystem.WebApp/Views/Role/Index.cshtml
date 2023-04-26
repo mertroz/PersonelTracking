@@ -43,7 +43,7 @@
                     <tr>
                         <td>@role.Name</td>
                         <td class="text-end">
-                            <a class="btn btn-outline-primary btn-sm" asp-controller="Role" asp-action="Edit" asp-route-id="@role.Id">Düzenle </a>
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="Role" asp-action="Update" asp-route-id="@role.Id">Düzenle </a>
                             <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu yetkiyi silmek istediğinize emin misiniz?');">
                                 <input type="hidden" value="@role.Id" name="id">
                                 <button class="btn btn-outline-danger btn-sm">Sil</button>

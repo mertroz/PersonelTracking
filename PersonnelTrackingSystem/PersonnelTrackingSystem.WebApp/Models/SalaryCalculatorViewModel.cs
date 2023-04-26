@@ -2,6 +2,10 @@
 {
     public class SalaryCalculatorViewModel
     {
+        public SalaryCalculatorViewModel()
+        {
+            Employees = new List<EmployeeViewModel>();
+        }
         public int Id { get; set; }
         public decimal Salary { get; set; }
         public decimal MealAllowance { get; set; }

@@ -49,7 +49,7 @@
                         
 
                         <td class="text-end">
-                            <a class="btn btn-outline-primary btn-sm" asp-controller="User" asp-action="Edit" asp-route-id="@user.Id">Düzenle </a>
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="User" asp-action="Update" asp-route-id="@user.Id">Düzenle </a>
                             <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu kullanıcıyı silmek istediğinize emin misiniz?');">
                                 <input type="hidden" value="@user.Id" name="id">
                                 <button class="btn btn-outline-danger btn-sm">Sil</button>
