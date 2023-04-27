@@ -5,10 +5,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>AllMonthPayment</h1>
+<h4>Toplu Maaş Girişi</h4>
 
-<h4>SalaryPaymentSaveModel</h4>
-<hr />
 <div class="float-start col-4">
     @if (TempData.ContainsKey("ResultMessage"))
     {
@@ -23,13 +21,39 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Month" class="control-label">Ay</label>
-                <input asp-for="Month" class="form-control" />
+                <select asp-for="Month" class="form-select mb-0" required>
+                    <option selected value="">Seçiniz</option>
+                    <option value="1">Ocak</option>
+                    <option value="2">Şubat</option>
+                    <option value="3">Mart</option>
+                    <option value="4">Nisan</option>
+                    <option value="5">Mayıs</option>
+                    <option value="6">Haziran</option>
+                    <option value="7">Temmuz</option>
+                    <option value="8">Ağustos</option>
+                    <option value="9">Eylül</option>
+                    <option value="10">Ekim</option>
+                    <option value="11">Kasım</option>
+                    <option value="12">Aralık</option>
+                </select>
                 <span asp-validation-for="Month" class="text-danger"></span>
             </div>
+
+             @{
+                var thisYear = DateTime.Now.Year;
+                var endYear = thisYear + 10;
+                var yearList = Enumerable.Range(thisYear, 11).ToList();
+            }
+
             <div class="form-group">
                 <label asp-for="Year" class="control-label">Yıl</label>
-                <input asp-for="Year" class="form-control" />
-                <span asp-validation-for="Year" class="text-danger"></span>
+                <select asp-for="Year" class="form-select mb-0" required>
+                    <option selected value="">Seçiniz</option>
+                    @foreach (var year in yearList)
+                    {
+                            <option value="@year">@year</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />

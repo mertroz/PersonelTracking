@@ -14,21 +14,13 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         public ActionResult Index()
         {
             List<CostViewModel> models = new List<CostViewModel>();
-            if (User.IsInRole("Admin"))
+            models = _costService.GetAllByUser(User).Select(s => new CostViewModel
             {
-                models = _costService.GetAll().Select(s => new CostViewModel
-                {
-                    CostAmount = s.CostAmount,
-                    CostType = GetCostType(s.CostType),
-                    EmployeeName = _employeeService.GetFullNameById(s.EmployeeId),
-                    Id = s.Id
-                }).ToList();
-            }
-            else
-            {
-                int employeeId = Convert.ToInt32(User.Claims.FirstOrDefault(w => w.Type == ClaimTypes.NameIdentifier).Value);
-                models = models.Where(w => w.EmployeeId == employeeId).ToList();
-            }
+                CostAmount = s.CostAmount,
+                CostType = GetCostType(s.CostType),
+                EmployeeName = _employeeService.GetFullNameById(s.EmployeeId),
+                Id = s.Id
+            }).ToList();
             return View(models);
 
         }
@@ -97,7 +89,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         public ActionResult Update(int id)
         {
             CostViewModel model = new CostViewModel();
-            model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
             {
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id

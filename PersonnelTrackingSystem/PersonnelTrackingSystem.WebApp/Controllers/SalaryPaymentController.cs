@@ -143,7 +143,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id
             }).ToList();
-            return View();
+            return View(model);
         }
 
         // POST: SalaryPaymentController/Create
@@ -170,7 +170,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             else
             {
                 TempData["ResultMessage"] = "Bu kullanıcı için maaş bilgileri girilmesi gerekiyor.";
-                return View();
+                return View(model);
             }
         }
 

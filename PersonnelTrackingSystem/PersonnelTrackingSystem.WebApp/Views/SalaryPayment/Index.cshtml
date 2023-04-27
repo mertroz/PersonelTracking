@@ -6,9 +6,6 @@
 }
 
 <h5>Maaş Ödeme</h5>
-<a asp-action="AllMonthPayment" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Toplu Maaş Girişi</a>
-
-<a asp-action="Create" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Personel Maaş Girişi</a>
 
 <div class="float-start col-4">
     @if (TempData.ContainsKey("ResultMessage"))
@@ -18,6 +15,13 @@
         </div>
     }
 </div>
+<div>
+    <a asp-action="AllMonthPayment" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Toplu Maaş Girişi</a>
+
+    <a asp-action="Create" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Personel Maaş Girişi</a>
+
+</div>
+
 <table class="table">
     <thead>
         <tr>

@@ -15,21 +15,25 @@ namespace PersonnelTrackingSystem.Business.Servicess
 {
     public class EmployeeService
     {
-        private PersonnelTrackingSystemContext _context = new PersonnelTrackingSystemContext();
+        private PersonnelTrackingSystemContext _context;
 
-        public IEnumerable<EmployeeDto> GetAll()
+        public EmployeeService()
+        {
+            _context = new PersonnelTrackingSystemContext();
+        }
+        public IEnumerable<EmployeeDto?> GetAll()
         {
             try
             {
-                return _context.Employees.Select(MapToDto).ToList();
+                return _context.Employees.Select(MapToDto);
             }
-            catch (Exception ex)
+            catch
             {
                 return new List<EmployeeDto>();
             }
         }
 
-        public EmployeeDto GetById(int id)
+        public EmployeeDto? GetById(int id)
         {
             try
             {
@@ -51,14 +55,14 @@ namespace PersonnelTrackingSystem.Business.Servicess
             }
         }
 
-        public string GetFullNameById(int id)
+        public string? GetFullNameById(int id)
         {
             try
             {
                 var entity = _context.Employees.Find(id);
                 if (entity != null)
                 {
-                    string fullName=entity.FirstName + ' ' + entity.LastName;
+                    string fullName = entity.FirstName + ' ' + entity.LastName;
                     return fullName;
                 }
                 else
@@ -130,31 +134,27 @@ namespace PersonnelTrackingSystem.Business.Servicess
         }
         internal static EmployeeDto? MapToDto(Employee? employee)
         {
-                EmployeeDto dto = null;
-
-                if (employee != null)
+            if (employee != null)
+            {
+                return new EmployeeDto()
                 {
-                    return new EmployeeDto()
-                    {
-                        Id = employee.Id,
-                        Address = employee.Address,
-                        Department = employee.Department,
-                        FirstName = employee.FirstName,
-                        LastName = employee.LastName,
-                        Identity = employee.Identity,
-                        RegistrationNumber = employee.RegistrationNumber,
-                        HiringDate = employee.HiringDate,
-                        HomePhone = employee.HomePhone,
-                        MobilePhone = employee.MobilePhone,
-                        Gender = employee.Gender
-                    };
-                }
-                return dto;
+                    Id = employee.Id,
+                    Address = employee.Address,
+                    Department = employee.Department,
+                    FirstName = employee.FirstName,
+                    LastName = employee.LastName,
+                    Identity = employee.Identity,
+                    RegistrationNumber = employee.RegistrationNumber,
+                    HiringDate = employee.HiringDate,
+                    HomePhone = employee.HomePhone,
+                    MobilePhone = employee.MobilePhone,
+                    Gender = employee.Gender
+                };
+            }
+            return null;
         }
-        internal static Employee MapToEntity(EmployeeDto employeeDto)
+        internal static Employee? MapToEntity(EmployeeDto employeeDto)
         {
-            Employee dto = null;
-
             if (employeeDto != null)
             {
                 return new Employee()
@@ -170,24 +170,24 @@ namespace PersonnelTrackingSystem.Business.Servicess
                     HomePhone = employeeDto.HomePhone,
                     MobilePhone = employeeDto.MobilePhone,
                     Gender = employeeDto.Gender
-                    
+
                 };
             }
-            return dto;
+            return null;
         }
 
-        public IEnumerable<EmployeeDto> GetAllByUser(ClaimsPrincipal user)
+        public IEnumerable<EmployeeDto?> GetAllByUser(ClaimsPrincipal user)
         {
             try
             {
                 int employeeId = Convert.ToInt32(user.Claims.FirstOrDefault(w => w.Type == ClaimTypes.NameIdentifier).Value);
                 if (user.IsInRole("Admin"))
                 {
-                    return _context.Employees.Select(MapToDto).ToList();
+                    return _context.Employees.Select(MapToDto);
                 }
-                else return _context.Employees.Where(x=>x.Id== employeeId).Select(MapToDto).ToList();
+                else return _context.Employees.Where(x => x.Id == employeeId).Select(MapToDto);
             }
-            catch (Exception ex)
+            catch
             {
                 return new List<EmployeeDto>();
             }
