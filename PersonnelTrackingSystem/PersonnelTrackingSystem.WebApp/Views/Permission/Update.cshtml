@@ -28,10 +28,17 @@
                                 <option>Lütfen Giriniz</option>
                             </select>
                         </div>
-                        <div class="col-md-6 mb-3">
-                            <label asp-for="PermitDate" class="control-label">İzin Başlangıç Tarihi</label>
-                            <input asp-for="PermitDate" class="form-control" />
-                            <span asp-validation-for="PermitDate" class="text-danger"></span>
+                        <div class="form-group">
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PermitStartDate" class="control-label">İzin Başlangıç Tarihi</label>
+                                <input asp-for="PermitStartDate" class="form-control" required />
+                                <span asp-validation-for="PermitStartDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label asp-for="PermitEndDate" class="control-label">İzin Bitiş Tarihi</label>
+                                <input asp-for="PermitEndDate" class="form-control" required />
+                                <span asp-validation-for="PermitEndDate" class="text-danger"></span>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-3">

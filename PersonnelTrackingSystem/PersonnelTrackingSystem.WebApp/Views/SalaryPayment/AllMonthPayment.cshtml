@@ -4,17 +4,21 @@
     ViewData["Title"] = "AllMonthPayment";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="row">
+    <div class="float-start col-4">
+        @if (TempData.ContainsKey("ResultMessage"))
+        {
+            <div class="alert alert-success">
+                @TempData["ResultMessage"]
+            </div>
+        }
+    </div>
+</div>
 
 <h4>Toplu Maaş Girişi</h4>
 
-<div class="float-start col-4">
-    @if (TempData.ContainsKey("ResultMessage"))
-    {
-        <div class="alert alert-success">
-            @TempData["ResultMessage"]
-        </div>
-    }
-</div>
+
+
 <div class="row">
     <div class="col-md-4">
         <form asp-action="AllMonthPayment">
@@ -39,7 +43,7 @@
                 <span asp-validation-for="Month" class="text-danger"></span>
             </div>
 
-             @{
+            @{
                 var thisYear = DateTime.Now.Year;
                 var endYear = thisYear + 10;
                 var yearList = Enumerable.Range(thisYear, 11).ToList();
@@ -51,7 +55,7 @@
                     <option selected value="">Seçiniz</option>
                     @foreach (var year in yearList)
                     {
-                            <option value="@year">@year</option>
+                        <option value="@year">@year</option>
                     }
                 </select>
             </div>

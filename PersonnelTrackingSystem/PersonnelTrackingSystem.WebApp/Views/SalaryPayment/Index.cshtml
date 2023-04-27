@@ -7,14 +7,17 @@
 
 <h5>Maaş Ödeme</h5>
 
-<div class="float-start col-4">
-    @if (TempData.ContainsKey("ResultMessage"))
-    {
-        <div class="alert alert-success">
-            @TempData["ResultMessage"]
-        </div>
-    }
+<div class="row">
+    <div class="float-start col-4">
+        @if (TempData.ContainsKey("ResultMessage"))
+        {
+            <div class="alert alert-success">
+                @TempData["ResultMessage"]
+            </div>
+        }
+    </div>
 </div>
+
 <div>
     <a asp-action="AllMonthPayment" asp-controller="SalaryPayment" class="btn btn-lg btn-primary" type="button">Toplu Maaş Girişi</a>
 

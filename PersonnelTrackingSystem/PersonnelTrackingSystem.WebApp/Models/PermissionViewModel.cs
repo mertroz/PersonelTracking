@@ -7,7 +7,8 @@
             Employees = new List<EmployeeViewModel>();
         }
         public int Id { get; set; }
-        public DateTime PermitDate { get; set; }
+        public DateTime PermitStartDate { get; set; }
+        public DateTime PermitEndDate { get; set; }
         public object EmployeeName { get; internal set; }
         public int EmployeeId { get; set; }
         public List<EmployeeViewModel> Employees { get; set; }

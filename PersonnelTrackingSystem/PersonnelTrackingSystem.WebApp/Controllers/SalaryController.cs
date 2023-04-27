@@ -10,7 +10,7 @@ using System.Data;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Admin")]
     public class SalaryController : Controller
     {
         SalaryCalculatorService _salaryCalculatorService = new SalaryCalculatorService();

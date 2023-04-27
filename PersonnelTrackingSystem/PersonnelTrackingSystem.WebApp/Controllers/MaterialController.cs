@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Materials;
 using PersonnelTrackingSystem.WebApp.Models;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize]
     public class MaterialController : Controller
     {
         private readonly MaterialService _materialService = new MaterialService();
@@ -12,7 +14,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: MaterialController
         public ActionResult Index()
         {
-            var materials = _materialService.GetAll().Select(s => new MaterialViewModel
+            var materials = _materialService.GetAllByUser(User).Select(s => new MaterialViewModel
             {
                 EmployeeId= s.EmployeeId,
                 EmployeeName = _employeeService.GetFullNameById(s.EmployeeId),
@@ -27,7 +29,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         public ActionResult Create()
         {
             MaterialViewModel materialViewModel = new MaterialViewModel();
-            materialViewModel.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            materialViewModel.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
             {
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id
@@ -67,7 +69,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         public ActionResult Update(int id)
         {
             MaterialViewModel model = new MaterialViewModel();
-            model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
             {
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id

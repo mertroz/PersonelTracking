@@ -21,7 +21,10 @@ namespace PersonnelTrackingSystem.DataAccess.Configuration
                 builder.HasKey(p => p.Id);
 
                 
-                builder.Property(p => p.PermitDate)
+                builder.Property(p => p.PermitStartDate)
+                    .IsRequired();
+
+                builder.Property(p => p.PermitEndDate)
                     .IsRequired();
 
                 builder.Property(p => p.EmployeeId)

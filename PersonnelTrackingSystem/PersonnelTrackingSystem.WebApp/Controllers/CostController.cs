@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Costs;
 using PersonnelTrackingSystem.WebApp.Models;
@@ -6,6 +7,7 @@ using System.Security.Claims;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize]
     public class CostController : Controller
     {
         private readonly CostService _costService = new CostService();
@@ -119,9 +121,19 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
             else
             {
+                CostViewModel model = new CostViewModel();
+                model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
 
                 TempData["ResultMessage"] = commandResult.Message;
-                return View(cost);
+                model.CostAmount = cost.CostAmount;
+                model.CostType = cost.CostType;
+                model.EmployeeId = cost.EmployeeId;
+
+                return View(model);
             }
         }
 

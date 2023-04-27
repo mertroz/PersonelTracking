@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Roles;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize, Authorize(Roles = "Admin")]
     public class RoleController : Controller
     {
         private readonly RoleService _roleService = new RoleService();

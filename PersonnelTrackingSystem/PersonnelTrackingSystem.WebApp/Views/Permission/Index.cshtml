@@ -37,6 +37,7 @@
                     <th>Personel Adı</th>
                     <th>İzin Başlangıç Tarihi</th>
                     <th>İzin Bitiş Tarihi</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -44,7 +45,8 @@
                 {
                     <tr>
                         <td>@permission.EmployeeName</td>
-                        <td>@permission.PermitDate</td>
+                        <td>@permission.PermitStartDate</td>
+                        <td>@permission.PermitEndDate</td>
 
                         <td class="text-end">
                             <a class="btn btn-outline-primary btn-sm" asp-controller="Permission" asp-action="Update" asp-route-id="@permission.Id">Düzenle </a>

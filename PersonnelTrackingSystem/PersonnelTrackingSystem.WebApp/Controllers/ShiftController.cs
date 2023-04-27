@@ -9,7 +9,6 @@ using System.Data;
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
     [Authorize]
-
     public class ShiftController : Controller
     {
         private readonly ShiftService _shiftService = new ShiftService();

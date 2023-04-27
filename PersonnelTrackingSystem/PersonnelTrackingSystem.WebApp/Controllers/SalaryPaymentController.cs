@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.SalaryPayments;
 using PersonnelTrackingSystem.WebApp.Models;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin")] 
     public class SalaryPaymentController : Controller
     {
         SalaryPaymentService _salaryPaymentService = new SalaryPaymentService();

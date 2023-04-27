@@ -1,4 +1,5 @@
-﻿using PersonnelTrackingSystem.DataAccess;
+﻿using PersonnelTrackingSystem.Costs;
+using PersonnelTrackingSystem.DataAccess;
 using PersonnelTrackingSystem.Domain;
 using PersonnelTrackingSystem.Permissions;
 using PersonnelTrackingSystem.Shifts;
@@ -6,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,7 +28,28 @@ namespace PersonnelTrackingSystem.Business.Servicess
                 return new List<PermissionDto>();
             }
         }
-        public PermissionDto GetById(int id)
+
+        public IEnumerable<PermissionDto> GetAllByUser(ClaimsPrincipal user)
+        {
+            try
+            {
+                int employeeId = Convert.ToInt32(user.Claims.FirstOrDefault(w => w.Type == ClaimTypes.NameIdentifier).Value);
+                if (user.IsInRole("Admin"))
+                {
+                    return _context.Permissions.Select(MapToDto).ToList();
+                }
+                else
+                {
+                    return _context.Permissions.Where(x => x.EmployeeId == employeeId).Select(MapToDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<PermissionDto>();
+            }
+        }
+
+        public PermissionDto? GetById(int id)
         {
             try
             {
@@ -36,10 +59,8 @@ namespace PersonnelTrackingSystem.Business.Servicess
                     var dto = MapToDto(entity);
                     return dto;
                 }
-                else
-                {
-                    return null;
-                }
+                   
+                return null;
             }
             catch (Exception ex)
             {
@@ -104,33 +125,31 @@ namespace PersonnelTrackingSystem.Business.Servicess
         }
         internal static PermissionDto? MapToDto(Permission? permission)
         {
-            PermissionDto dto = null;
-
             if (permission != null)
             {
                 return new PermissionDto()
                 {
                   Id = permission.Id,
                   EmployeeId = permission.EmployeeId,
-                  PermitDate = permission.PermitDate,
+                  PermitEndDate= permission.PermitEndDate,
+                  PermitStartDate = permission.PermitStartDate
                 };
             }
-            return dto;
+            return null;
         }
-        internal static Permission MapToEntity(PermissionDto permissionDto)
+        internal static Permission? MapToEntity(PermissionDto permissionDto)
         {
-            Permission dto = null;
-
             if (permissionDto != null)
             {
                 return new Permission()
                 {
                     Id = permissionDto.Id,
                     EmployeeId = permissionDto.EmployeeId,
-                    PermitDate = permissionDto.PermitDate,
+                    PermitEndDate= permissionDto.PermitEndDate,
+                    PermitStartDate= permissionDto.PermitStartDate
                 };
             }
-            return dto;
+            return null;
         }
     }
 }

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PersonnelTrackingSystem.DataAccess;
 
@@ -11,9 +12,11 @@ using PersonnelTrackingSystem.DataAccess;
 namespace PersonnelTrackingSystem.DataAccess.Migrations
 {
     [DbContext(typeof(PersonnelTrackingSystemContext))]
-    partial class PersonnelTrackingSystemContextModelSnapshot : ModelSnapshot
+    [Migration("20230427202254_shifts")]
+    partial class shifts
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -147,10 +150,7 @@ namespace PersonnelTrackingSystem.DataAccess.Migrations
                     b.Property<int>("EmployeeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("PermitEndDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("PermitStartDate")
+                    b.Property<DateTime>("PermitDate")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
