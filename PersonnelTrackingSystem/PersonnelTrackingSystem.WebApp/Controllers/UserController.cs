@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UserController : Controller
     {
         private readonly UserService _userService = new UserService();
@@ -19,7 +21,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 UserName = s.UserName,
                 RoleId = s.RoleId,
                 EmployeeName = _employeeService.GetFullNameById(s.EmployeeId),
-                RoleName=_roleService.GetRoleNameById(s.RoleId),
+                RoleName = _roleService.GetRoleNameById(s.RoleId),
                 Id = s.Id
             });
             return View(users);
@@ -84,12 +86,12 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 Name = x.Name
             }).ToList();
 
-            UserDto userDto=_userService.GetById(id);
+            UserDto userDto = _userService.GetById(id);
             model.UserName = userDto.UserName;
             model.EmployeeId = userDto.EmployeeId;
             model.Password = userDto.Password;
             model.RoleId = userDto.RoleId;
-            
+
             return View(model);
         }
 

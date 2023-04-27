@@ -2,6 +2,7 @@
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Costs;
 using PersonnelTrackingSystem.WebApp.Models;
+using System.Security.Claims;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
@@ -25,7 +26,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
             else
             {
-                // models = models.Where(w=> w.EmployeeId == User.)
+                int employeeId = Convert.ToInt32(User.Claims.FirstOrDefault(w => w.Type == ClaimTypes.NameIdentifier).Value);
+                models = models.Where(w => w.EmployeeId == employeeId).ToList();
             }
             return View(models);
 
@@ -53,9 +55,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         // GET: CostController/Create
         public ActionResult Create()
         {
-
             CostViewModel costViewModel = new CostViewModel();
-            costViewModel.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+            costViewModel.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
             {
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id

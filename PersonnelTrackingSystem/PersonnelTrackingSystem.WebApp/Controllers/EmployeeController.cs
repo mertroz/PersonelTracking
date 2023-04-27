@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
 using PersonnelTrackingSystem.Employees;
 using PersonnelTrackingSystem.WebApp.Helper;
+using System.Security.Claims;
 
 namespace PersonnelTrackingSystem.WebApp.Controllers
 {
@@ -12,8 +13,17 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         private readonly EmployeeService _employeeService = new EmployeeService();
         public IActionResult Index()
         {
-            var employee = _employeeService.GetAll();
-            return View(employee);
+            List<EmployeeDto> models = new List<EmployeeDto>();
+            if (User.IsInRole("Admin"))
+            {
+                models = _employeeService.GetAll().ToList();
+            }
+            else
+            {
+                int employeeId = Convert.ToInt32(User.Claims.FirstOrDefault(w => w.Type == ClaimTypes.NameIdentifier).Value);
+                models = models.Where(w => w.Id == employeeId).ToList();
+            }
+            return View(models);
         }
 
         public IActionResult Create()

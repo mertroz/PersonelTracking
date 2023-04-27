@@ -1,12 +1,8 @@
-﻿using Auth0.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using NuGet.Protocol.Plugins;
 using PersonnelTrackingSystem.Business.Servicess;
-using PersonnelTrackingSystem.Users;
 using PersonnelTrackingSystem.WebApp.Models;
 using System.Security.Claims;
 
@@ -39,7 +35,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                     var role=_roleService.GetById(user.RoleId);
                     var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                        new Claim(ClaimTypes.NameIdentifier, user.EmployeeId.ToString()),
                         new Claim(ClaimTypes.Name, loginRequest.Username),
                         new Claim(ClaimTypes.Role, role.Name)
                     };
