@@ -71,8 +71,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: UserController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: UserController/Update/5
+        public ActionResult Update(int id)
         {
             UserViewModel model = new UserViewModel();
             model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
@@ -95,9 +95,9 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: UserController/Edit/5
+        // POST: UserController/Update/5
         [HttpPost]
-        public ActionResult Edit(UserDto user)
+        public ActionResult Update(UserDto user)
         {
             var commandResult = _userService.Update(user);
 

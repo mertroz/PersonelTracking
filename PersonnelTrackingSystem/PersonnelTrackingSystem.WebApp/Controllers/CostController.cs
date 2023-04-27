@@ -93,8 +93,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: CostController/Edit/5
-        public ActionResult Edit(int id)
+        // GET: CostController/Update/5
+        public ActionResult Update(int id)
         {
             CostViewModel model = new CostViewModel();
             model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
@@ -112,10 +112,10 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: CostController/Edit/5
+        // POST: CostController/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(CostDto cost)
+        public ActionResult Update(CostDto cost)
         {
 
             var commandResult = _costService.Update(cost);

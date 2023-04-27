@@ -1,7 +1,7 @@
 ﻿@model SalaryCalculatorViewModel
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Update";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -15,7 +15,7 @@
                 @TempData["ResultMessage"]
             </div>
         }
-        <form asp-action="Edit">
+        <form asp-action="Update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <div class="card card-body border-0 shadow mb-4">

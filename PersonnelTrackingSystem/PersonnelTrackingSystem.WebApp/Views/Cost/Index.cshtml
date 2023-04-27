@@ -49,7 +49,7 @@
 
 
                         <td class="text-end">
-                            <a class="btn btn-outline-primary btn-sm" asp-controller="Cost" asp-action="Edit" asp-route-id="@cost.Id">Düzenle </a>
+                            <a class="btn btn-outline-primary btn-sm" asp-controller="Cost" asp-action="Update" asp-route-id="@cost.Id">Düzenle </a>
                             <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu masraf talebini silmek istediğinize emin misiniz?');">
                                 <input type="hidden" value="@cost.Id" name="id">
                                 <button class="btn btn-outline-danger btn-sm">Sil</button>
