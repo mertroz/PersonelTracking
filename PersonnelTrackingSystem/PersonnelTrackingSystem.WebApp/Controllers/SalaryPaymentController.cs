@@ -145,6 +145,9 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 FullName = x.FirstName + ' ' + x.LastName,
                 Id = x.Id
             }).ToList();
+            model.Month = 1;
+            model.Year=DateTime.Now.Year;
+            
             return View(model);
         }
 
@@ -171,6 +174,11 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
             else
             {
+                model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
                 TempData["ResultMessage"] = "Bu kullanıcı için maaş bilgileri girilmesi gerekiyor.";
                 return View(model);
             }

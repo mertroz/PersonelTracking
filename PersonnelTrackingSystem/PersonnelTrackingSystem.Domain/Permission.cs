@@ -10,7 +10,8 @@ namespace PersonnelTrackingSystem.Domain
     {
         public int Id { get; set; }
 
-        public DateTime PermitDate { get; set; }
+        public DateTime PermitStartDate { get; set; }
+        public DateTime PermitEndDate { get; set; }
         public int EmployeeId { get; set; }
         public Employee Employee { get; set; }
     }
