@@ -1,16 +1,18 @@
 ﻿namespace PersonnelTrackingSystem.WebApp.Models
 {
-    public class PermissionViewModel
+    public class ShiftViewModel
     {
-        public PermissionViewModel()
+        public ShiftViewModel()
         {
             Employees = new List<EmployeeViewModel>();
         }
         public int Id { get; set; }
-        public DateTime PermitStartDate { get; set; }
-        public DateTime PermitEndDate { get; set; }
-        public string EmployeeName { get; set; }
+
+        public DateTime WorkingDate { get; set; }
+        public DateTime WorkingTime { get; set; }
         public int EmployeeId { get; set; }
+        public string EmployeeName { get; set; }
         public List<EmployeeViewModel> Employees { get; set; }
+
     }
 }

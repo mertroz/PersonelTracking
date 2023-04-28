@@ -2,7 +2,11 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
+using PersonnelTrackingSystem.Domain;
+using PersonnelTrackingSystem.Materials;
+using PersonnelTrackingSystem.Permissions;
 using PersonnelTrackingSystem.Shifts;
+using PersonnelTrackingSystem.WebApp.Models;
 using System.Collections.Generic;
 using System.Data;
 
@@ -12,8 +16,9 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     public class ShiftController : Controller
     {
         private readonly ShiftService _shiftService = new ShiftService();
+        private readonly EmployeeService _employeeService = new EmployeeService();
 
-        [Authorize, Authorize(Roles = "Admin")]
+        [Authorize]
         public ActionResult EmployeeShifts()
         {
             List<ShiftDto> shifts = _shiftService.GetAllByUser(User).ToList();
@@ -28,7 +33,15 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         }
         public ActionResult Index()
         {
-            return View();
+            List<ShiftViewModel> shifts = _shiftService.GetAllByUser(User).Select(s => new ShiftViewModel
+            {
+                EmployeeId= s.EmployeeId,
+                EmployeeName = _employeeService.GetFullNameById(s.EmployeeId),
+                Id= s.Id,
+                WorkingDate= s.WorkingDate,
+                WorkingTime= s.WorkingTime
+            }).ToList();
+            return View(shifts);
         }
 
         public ActionResult Details(int id)
@@ -36,41 +49,80 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View();
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            return View();
+            ShiftViewModel model=new ShiftViewModel();
+            model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+            model.WorkingDate = DateTime.Now;
+            model.WorkingTime = DateTime.Now.Date;
+
+            return View(model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(ShiftViewModel shift)
         {
-            try
+            ShiftDto shiftDto = new ShiftDto()
             {
-                return RedirectToAction(nameof(Index));
+                WorkingTime= shift.WorkingTime,
+                EmployeeId= shift.EmployeeId,   
+                WorkingDate= shift.WorkingDate,
+                Id=shift.Id
+            };
+
+            var result = _shiftService.Create(shiftDto);
+            if (result.IsSuccess)
+            {
+                TempData["ResultMessage"] = result.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                TempData["ResultMessage"] = result.Message;
+                return View(shift);
             }
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Update(int id)
         {
-            return View();
+            ShiftViewModel model = new ShiftViewModel();
+            model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+            ShiftDto shiftDto=_shiftService.GetById(id);
+            model.WorkingTime = shiftDto.WorkingTime;
+            model.EmployeeId = shiftDto.EmployeeId;
+            model.WorkingDate = shiftDto.WorkingDate;
+            model.Id = shiftDto.Id; 
+            return View(model);  
+
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Update(int id, IFormCollection collection)
+        public ActionResult Update(ShiftDto shift)
         {
-            try
+            var commandResult = _shiftService.Update(shift);
+
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+
+                TempData["ResultMessage"] = commandResult.Message;
+                return View(shift);
             }
         }
 
@@ -79,19 +131,19 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View();
         }
 
-        // POST: ShiftController/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(ShiftDto shift)
         {
-            try
+            var commandResult = _shiftService.Delete(shift);
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
             }
-            catch
+            else
             {
-                return View();
+                ViewBag.ResultMessage = commandResult.Message;
             }
+            return RedirectToAction("Index");
         }
     }
 }

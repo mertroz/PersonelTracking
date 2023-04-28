@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ShiftViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<div class="py-4">
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
+        <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">
+            <li class="breadcrumb-item" style="font-family:tahoma;font-weight:bold;font-size:125%">
+                <a href="#">
+                    <svg class="icon icon-xxs" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                </a>
+            </li>
+            <li class="breadcrumb-item active" style="font-family:tahoma;font-weight:bold;font-size:125%" aria-current="page">Mesai Listesi</li>
+        </ol>
+    </nav>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="float-end">
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-outline-primary btn-sm" asp-controller="Shift" asp-action="Create">Personel Mesai Girişi</a>
+            }
+        </div>
+        <div class="float-start col-4">
+            @if (TempData.ContainsKey("ResultMessage"))
+            {
+                <div class="alert alert-success">
+                    @TempData["ResultMessage"]
+                </div>
+            }
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Personel Adı</th>
+                    <th>Mesai Tarihi</th>
+                    <th>Mesai Süresi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var shift in Model)
+                {
+                    <tr>
+                        <td>@shift.EmployeeName</td>
+                        <td>@shift.WorkingDate</td>
+                        <td>@shift.WorkingTime.ToString("HH:mm")</td>
+
+
+                        <td class="text-end">
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <a class="btn btn-outline-primary btn-sm" asp-controller="Shift" asp-action="Update" asp-route-id="@shift.Id">Düzenle </a>
+                                <form asp-action="Delete" method="post" class="delete-form d-inline-block" onclick="return confirm('Bu mesaiyi silmek istediğinize emin misiniz?');">
+                                    <input type="hidden" value="@shift.Id" name="id">
+                                    <button class="btn btn-outline-danger btn-sm">Sil</button>
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
