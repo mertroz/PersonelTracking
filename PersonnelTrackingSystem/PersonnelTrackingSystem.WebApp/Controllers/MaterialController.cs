@@ -65,7 +65,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: MaterialController/Edit/5
         public ActionResult Update(int id)
         {
             MaterialViewModel model = new MaterialViewModel();
@@ -83,7 +82,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: MaterialController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(MaterialDto material)

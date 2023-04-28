@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PersonnelTrackingSystem.Business.Servicess;
+using PersonnelTrackingSystem.Materials;
 using PersonnelTrackingSystem.SalaryPayments;
 using PersonnelTrackingSystem.WebApp.Models;
 
@@ -184,28 +185,47 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: SalaryPaymentController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Update(int id)
         {
-            return View();
+            SalaryPaymentViewModel model = new SalaryPaymentViewModel();
+            model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+
+
+            SalaryPaymentDto salaryPaymentDto = _salaryPaymentService.GetById(id);
+            model.EmployeeId = salaryPaymentDto.EmployeeId;
+            model.Amount = salaryPaymentDto.Amount;
+            model.Month = salaryPaymentDto.Month;
+            model.Year= salaryPaymentDto.Year;
+            model.Paid = salaryPaymentDto.Paid;
+            model.Id = salaryPaymentDto.Id; 
+
+            return View(model);
         }
 
-        // POST: SalaryPaymentController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Update(SalaryPaymentDto salaryPayment)
         {
-            try
+            var commandResult = _salaryPaymentService.Update(salaryPayment);
+
+            if (commandResult.IsSuccess)
             {
-                return RedirectToAction(nameof(Index));
+                TempData["ResultMessage"] = commandResult.Message;
+                return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+
+                TempData["ResultMessage"] = commandResult.Message;
+                return View(salaryPayment);
             }
         }
 
-        
-        
+
+
     }
 }
