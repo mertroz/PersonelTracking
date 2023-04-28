@@ -126,10 +126,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         [HttpPost]
         public ActionResult Delete(ShiftDto shift)
