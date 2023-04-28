@@ -8,7 +8,7 @@ namespace PersonnelTrackingSystem
 {
     public enum Gender
     {
-        Male = 0,
-        Woman = 1
+        Erkek = 0,
+        Kadin = 1
     }
 }

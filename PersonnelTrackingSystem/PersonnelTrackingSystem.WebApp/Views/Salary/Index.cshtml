@@ -34,8 +34,8 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th>Maaş</th>
                     <th>Personel Adı</th>
+                    <th>Maaş</th>
                     <th>Yol Ücreti</th>
                     <th>Bonus</th>
                     <th>Yemek Ücreti</th>
@@ -45,8 +45,8 @@
                 @foreach (var salary in Model)
                 {
                     <tr>
+                        <td>@salary.EmployeeName</td>      
                         <td>@salary.Salary</td>
-                        <td>@salary.EmployeeName</td>
                         <td>@salary.TransportationAllowance</td>
                         <td>@salary.Bonus</td>
                         <td>@salary.MealAllowance</td>

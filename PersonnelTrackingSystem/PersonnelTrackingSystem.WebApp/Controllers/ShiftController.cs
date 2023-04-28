@@ -13,13 +13,11 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     {
         private readonly ShiftService _shiftService = new ShiftService();
 
-        // GET: ShiftController
         [Authorize, Authorize(Roles = "Admin")]
         public ActionResult EmployeeShifts()
         {
-            List<ShiftDto> shifts = _shiftService.GetAll().ToList();
+            List<ShiftDto> shifts = _shiftService.GetAllByUser(User).ToList();
             return View(shifts);
-
         }
 
         public ActionResult MyShifts()
@@ -33,19 +31,16 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View();
         }
 
-        // GET: ShiftController/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ShiftController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ShiftController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -60,16 +55,14 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: ShiftController/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Update(int id)
         {
             return View();
         }
 
-        // POST: ShiftController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Update(int id, IFormCollection collection)
         {
             try
             {
@@ -81,7 +74,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: ShiftController/Delete/5
         public ActionResult Delete(int id)
         {
             return View();

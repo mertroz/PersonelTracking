@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -138,6 +139,25 @@ namespace PersonnelTrackingSystem.Business.Servicess
             }
             return dto;
         }
-        
+
+        public IEnumerable<ShiftDto> GetAllByUser(ClaimsPrincipal user)
+        {
+            try
+            {
+                int employeeId = Convert.ToInt32(user.Claims.FirstOrDefault(w => w.Type == ClaimTypes.NameIdentifier).Value);
+                if (user.IsInRole("Admin"))
+                {
+                    return _context.Shifts.Select(MapToDto).ToList();
+                }
+                else
+                {
+                    return _context.Shifts.Where(x => x.EmployeeId == employeeId).Select(MapToDto);
+                }
+            }
+            catch (Exception ex)
+            {
+                return new List<ShiftDto>();
+            }           
+        }
     }
 }

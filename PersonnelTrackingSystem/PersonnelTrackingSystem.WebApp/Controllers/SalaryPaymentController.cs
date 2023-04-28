@@ -137,6 +137,31 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
 
         }
 
+        public IActionResult Pay(int id)
+        {
+            var salaryPayment = _salaryPaymentService.GetById(id);
+            if (salaryPayment != null)
+            {
+                salaryPayment.Paid = true;
+
+                var commandResult = _salaryPaymentService.Update(salaryPayment);
+                if (commandResult.IsSuccess)
+                {
+                    TempData["ResultMessage"] = commandResult.Message;
+                }
+                else
+                {
+                    ViewBag.ResultMessage = commandResult.Message;
+                }
+            }
+            else
+            {
+                TempData["ResultMessage"] = "Kayıt bulunamadı";
+            }
+            return RedirectToAction("Index");
+
+        }
+
         // GET: SalaryPaymentController/Create
         public ActionResult Create()
         {
