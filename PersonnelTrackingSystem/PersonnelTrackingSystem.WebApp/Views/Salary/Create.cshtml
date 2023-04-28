@@ -23,14 +23,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Salary" class="control-label">Maaş</label>
-                            <input asp-for="Salary" class="form-control" />
+                            <input asp-for="Salary" class="form-control" required/>
                             <span asp-validation-for="Salary" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
-                            <select asp-for="EmployeeId" class="form-select"
+                            <select asp-for="EmployeeId" class="form-select" required
                                     asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
-                                <option>Lütfen Giriniz</option>
+                                <option value="">Lütfen Seçiniz</option>
                             </select>
                         </div>
                     </div>
@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="MealAllowance" class="control-label">Yemek Ücreti</label>
-                            <input asp-for="MealAllowance" class="form-control" />
+                            <input asp-for="MealAllowance" class="form-control" required />
                             <span asp-validation-for="MealAllowance" class="text-danger"></span>
                         </div>
                     </div>
@@ -65,7 +65,11 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
+<hr />
+
+<div class="row">
+    <div class="form-group">
+        <a class="btn btn-light btn-primary" asp-action="Index">Listeye Geri Dön</a>
+    </div>
+</div>

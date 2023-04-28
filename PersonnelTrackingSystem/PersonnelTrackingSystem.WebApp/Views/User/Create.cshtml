@@ -23,12 +23,12 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="UserName" class="control-label">Kullanıcı Adı</label>
-                            <input asp-for="UserName" class="form-control" />
+                            <input asp-for="UserName" class="form-control" required/>
                             <span asp-validation-for="UserName" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="Password" class="control-label">Şifre</label>
-                            <input asp-for="Password" class="form-control" />
+                            <input asp-for="Password" class="form-control" required type="password" />
                             <span asp-validation-for="Password" class="text-danger"></span>
                         </div>
                     </div>
@@ -36,9 +36,9 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
-                            <select asp-for="EmployeeId" class="form-select"
+                            <select asp-for="EmployeeId" class="form-select" required
                                     asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
-                                <option>Lütfen Giriniz</option>
+                                <option value="">Lütfen Giriniz</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -58,7 +58,11 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Listeye Geri Dön</a>
-</div>
 
+<hr />
+
+<div class="row">
+    <div class="form-group">
+        <a class="btn btn-light btn-primary" asp-action="Index">Listeye Geri Dön</a>
+    </div>
+</div>

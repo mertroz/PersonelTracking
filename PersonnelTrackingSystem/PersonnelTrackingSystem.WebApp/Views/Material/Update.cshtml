@@ -24,14 +24,14 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
-                            <select asp-for="EmployeeId" class="form-select"
+                            <select asp-for="EmployeeId" class="form-select" required
                                     asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
-                                <option>Please select one</option>
+                                <option value="">Lütfen Seçiniz</option>
                             </select>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="Request" class="control-label">İstek</label>
-                            <input asp-for="Request" class="form-control" />
+                            <input asp-for="Request" class="form-control" required />
                             <span asp-validation-for="Request" class="text-danger"></span>
                         </div>
                     </div>

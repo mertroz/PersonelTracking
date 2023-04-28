@@ -23,8 +23,8 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="CostType" class="control-label">Masraf Talep Tipi</label>
-                            <select asp-for="CostType" class="form-select mb-0" id="costType" aria-label="Masraf Talep Seçiniz">
-                                <option selected>Masraf Talep Seçiniz</option>
+                            <select asp-for="CostType" class="form-select mb-0" id="costType" aria-label="Masraf Talep Seçiniz" required>
+                                <option selected value="">Masraf Talep Seçiniz</option>
                                 <option value="1">Ulaşım</option>
                                 <option value="2">Kırtasiye</option>
                                 <option value="3">Konaklama</option>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label asp-for="CostAmount" class="control-label">Masraf Talep Tutarı</label>
-                            <input asp-for="CostAmount" class="form-control" />
+                            <input asp-for="CostAmount" class="form-control" required />
                             <span asp-validation-for="CostAmount" class="text-danger"></span>
                         </div>
                     </div>
@@ -41,9 +41,9 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
-                            <select asp-for="EmployeeId" class="form-select"
+                            <select asp-for="EmployeeId" class="form-select" required
                                     asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
-                                <option>Please select one</option>
+                                <option value="">Lütfen Seçiniz</option>
                             </select>
                         </div>
                     </div>
@@ -56,7 +56,11 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Listeye Geri Dön</a>
-</div>
 
+<hr />
+
+<div class="row">
+    <div class="form-group">
+        <a class="btn btn-light btn-primary" asp-action="Index">Listeye Geri Dön</a>
+    </div>
+</div>

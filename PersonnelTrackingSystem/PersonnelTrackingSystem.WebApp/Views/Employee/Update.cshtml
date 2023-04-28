@@ -32,7 +32,7 @@
                         <div class="col-md-6 mb-3">
                             <div>
                                 <label for="identity">TC Kimlik</label>
-                                <input asp-for="Identity" class="form-control" id="identity" type="text" placeholder="Lütfen Giriniz" required>
+                                <input asp-for="Identity" class="form-control" id="identity" type="text" placeholder="Lütfen Giriniz" required maxlength="11" minlength="11">
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
@@ -65,8 +65,8 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="gender">Cinsiyet</label>
-                            <select asp-for="Gender" class="form-select mb-0" id="gender" aria-label="Gender select example">
-                                <option selected>Cinsiyet</option>
+                            <select asp-for="Gender" class="form-select mb-0" id="gender" required>
+                                <option value="" selected>Cinsiyet</option>
                                 <option value="1">Kadın</option>
                                 <option value="2">Erkek</option>
                             </select>
@@ -97,7 +97,10 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<hr />
 
+<div class="row">
+    <div class="form-group">
+        <a class="btn btn-light btn-primary" asp-action="Index">Listeye Geri Dön</a>
+    </div>
+</div>
