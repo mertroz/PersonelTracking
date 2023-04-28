@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using PersonnelTrackingSystem.DataAccess.Configuration;
 using PersonnelTrackingSystem.Domain;
 using System;
@@ -33,7 +34,7 @@ namespace PersonnelTrackingSystem.DataAccess
             base.OnConfiguring(optionsBuilder);
 
             optionsBuilder.UseSqlServer(ConnectionString);
-
+            optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

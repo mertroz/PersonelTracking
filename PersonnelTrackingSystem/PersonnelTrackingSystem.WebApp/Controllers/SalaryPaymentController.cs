@@ -139,7 +139,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
 
         public IActionResult Pay(int id)
         {
-            var salaryPayment = _salaryPaymentService.GetById(id);
+            SalaryPaymentDto salaryPayment = _salaryPaymentService.GetById(id);
+
             if (salaryPayment != null)
             {
                 salaryPayment.Paid = true;
