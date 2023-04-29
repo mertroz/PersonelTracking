@@ -13,7 +13,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         SalaryPaymentService _salaryPaymentService = new SalaryPaymentService();
         EmployeeService _employeeService = new EmployeeService();
         SalaryCalculatorService _salaryCalculatorService = new SalaryCalculatorService();
-        // GET: SalaryPaymentController
+
         public ActionResult Index()
         {
             List<SalaryPaymentViewModel> model = _salaryPaymentService.GetAll().Select(x => new SalaryPaymentViewModel
@@ -63,16 +63,11 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
 
             }
         }
-
-
-
-        // GET: SalaryPaymentController/Details/5
         public ActionResult AllMonthPayment()
         {
             return View();
         }
 
-        // POST: SalaryPaymentController/Create
         [HttpPost]
         public ActionResult AllMonthPayment(SalaryPaymentSaveModel model)
         {
@@ -109,11 +104,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 return RedirectToAction("Index");
             }
 
-
-
         }
-
-        // GET: SalaryPaymentController/Delete/5
         public IActionResult Delete(int id)
         {
             var salaryPayment = _salaryPaymentService.GetById(id);
@@ -136,7 +127,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return RedirectToAction("Index");
 
         }
-
         public IActionResult Pay(int id)
         {
             SalaryPaymentDto salaryPayment = _salaryPaymentService.GetById(id);
@@ -162,8 +152,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return RedirectToAction("Index");
 
         }
-
-        // GET: SalaryPaymentController/Create
         public ActionResult Create()
         {
             SalaryPaymentViewModel model = new SalaryPaymentViewModel();
@@ -178,7 +166,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: SalaryPaymentController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(SalaryPaymentViewModel model)
@@ -250,8 +237,5 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 return View(salaryPayment);
             }
         }
-
-
-
     }
 }

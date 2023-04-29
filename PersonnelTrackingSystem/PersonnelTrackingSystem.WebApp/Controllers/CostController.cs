@@ -12,7 +12,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     {
         private readonly CostService _costService = new CostService();
         private readonly EmployeeService _employeeService = new EmployeeService();
-        // GET: CostController
+       
         public ActionResult Index()
         {
             List<CostViewModel> models = new List<CostViewModel>();
@@ -45,8 +45,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-
-        // GET: CostController/Create
         public ActionResult Create()
         {
             CostViewModel costViewModel = new CostViewModel();
@@ -60,7 +58,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(costViewModel);
         }
 
-        // POST: CostController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CostViewModel cost)
@@ -87,7 +84,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: CostController/Update/5
         public ActionResult Update(int id)
         {
             CostViewModel model = new CostViewModel();
@@ -106,7 +102,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: CostController/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(CostDto cost)
@@ -137,7 +132,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: CostController/Delete/5
         public ActionResult Delete(CostDto cost)
         {
             var commandResult = _costService.Delete(cost);

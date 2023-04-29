@@ -9,20 +9,17 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     public class RoleController : Controller
     {
         private readonly RoleService _roleService = new RoleService();
-        // GET: RoleController
+
         public ActionResult Index()
         {
             var roles = _roleService.GetAll();
             return View(roles);
         }
-
-        // GET: RoleController/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: RoleController/Create
         [HttpPost]
         public ActionResult Create(RoleDto role)
         {
@@ -39,8 +36,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 return View();
             }
         }
-
-        // GET: RoleController/Update/5
         public ActionResult Update(int id)
         {
             RoleDto roleDto = _roleService.GetById(id);
@@ -48,7 +43,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(roleDto);
         }
 
-        // POST: RoleController/Update/5
         [HttpPost]
         public ActionResult Update(RoleDto role)
         {
@@ -66,8 +60,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 return View(role);
             }
         }
-
-        // GET: RoleController/Delete/5
         public ActionResult Delete(RoleDto role)
         {
             var commandResult = _roleService.Delete(role);

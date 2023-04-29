@@ -4,16 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<div class="row">
-    <div class="float-start col-4">
-        @if (TempData.ContainsKey("ResultMessage"))
-        {
-            <div class="alert alert-success">
-                @TempData["ResultMessage"]
-            </div>
-        }
-    </div>
-</div>
+
 <div class="py-4">
     <nav aria-label="breadcrumb" class="d-none d-md-inline-block">
         <ol class="breadcrumb breadcrumb-dark breadcrumb-transparent">

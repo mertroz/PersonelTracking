@@ -43,7 +43,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }).ToList();
             return View(shifts);
         }
-
         public ActionResult Details(int id)
         {
             return View();
@@ -104,7 +103,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             model.WorkingDate = shiftDto.WorkingDate;
             model.Id = shiftDto.Id; 
             return View(model);  
-
         }
 
         [HttpPost]

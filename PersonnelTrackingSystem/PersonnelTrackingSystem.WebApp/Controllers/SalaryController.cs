@@ -15,7 +15,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     {
         SalaryCalculatorService _salaryCalculatorService = new SalaryCalculatorService();
         EmployeeService _employeeService = new EmployeeService();
-        // GET: SalaryController
+
         public ActionResult Index()
         {
             List<SalaryViewModel> model = _salaryCalculatorService.GetAll().Select(x => new SalaryViewModel
@@ -30,8 +30,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }).ToList();
             return View(model);
         }
-
-        // GET: SalaryController/Create
         public ActionResult Create()
         {
             SalaryCalculatorViewModel salaryCalculatorViewModel = new SalaryCalculatorViewModel();
@@ -44,7 +42,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(salaryCalculatorViewModel);
         }
 
-        // POST: SalaryController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(SalaryCalculatorViewModel model)
@@ -63,7 +60,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             salaryCalculatorDto.TransportationAllowance = model.TransportationAllowance;
             salaryCalculatorDto.Salary = model.Salary;
 
-
             var result = _salaryCalculatorService.Create(salaryCalculatorDto);
             if (result.IsSuccess)
             {
@@ -78,7 +74,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: SalaryController/Update/5
         public ActionResult Update(int id)
         {
             SalaryCalculatorViewModel model = new SalaryCalculatorViewModel();
@@ -98,7 +93,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: SalaryController/Update/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(SalaryCalculatorDto salaryCalculator)
@@ -118,7 +112,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: SalaryController/Delete/5
         public ActionResult Delete(SalaryCalculatorDto salaryCalculator)
         {
             var commandResult = _salaryCalculatorService.Delete(salaryCalculator);

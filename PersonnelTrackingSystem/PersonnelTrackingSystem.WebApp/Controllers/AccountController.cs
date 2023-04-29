@@ -63,14 +63,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return RedirectToAction("Login");
         }
 
-        //[HttpPost]
-        //    [ValidateAntiForgeryToken]
-        //    public async Task<IActionResult> Logout()
-        //    {
-        //        await HttpContext.SignOutAsync();
-        //        return RedirectToAction("Login");
-        //    }
-
         [HttpGet]
         [AllowAnonymous]
         public IActionResult AccessDenied()

@@ -12,7 +12,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         private readonly UserService _userService = new UserService();
         private readonly EmployeeService _employeeService = new EmployeeService();
         private readonly RoleService _roleService = new RoleService();
-        // GET: UserController
+
         public ActionResult Index()
         {
             var users = _userService.GetAll().Select(s => new UserViewModel
@@ -26,8 +26,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             });
             return View(users);
         }
-
-        // GET: UserController/Create
         public ActionResult Create()
         {
             UserViewModel userViewModel = new UserViewModel();
@@ -45,7 +43,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(userViewModel);
         }
 
-        // POST: UserController/Create
         [HttpPost]
         public ActionResult Create(UserViewModel user)
         {
@@ -70,8 +67,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 return View();
             }
         }
-
-        // GET: UserController/Update/5
         public ActionResult Update(int id)
         {
             UserViewModel model = new UserViewModel();
@@ -95,7 +90,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(model);
         }
 
-        // POST: UserController/Update/5
         [HttpPost]
         public ActionResult Update(UserDto user)
         {
@@ -114,7 +108,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: UserController/Delete/5
         public ActionResult Delete(UserDto user)
         {
             var commandResult = _userService.Delete(user);

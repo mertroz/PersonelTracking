@@ -11,7 +11,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
     {
         private readonly MaterialService _materialService = new MaterialService();
         private readonly EmployeeService _employeeService = new EmployeeService();
-        // GET: MaterialController
+
         public ActionResult Index()
         {
             var materials = _materialService.GetAllByUser(User).Select(s => new MaterialViewModel
@@ -25,7 +25,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(materials);
         }
 
-        // GET: MaterialController/Create
         public ActionResult Create()
         {
             MaterialViewModel materialViewModel = new MaterialViewModel();
@@ -39,7 +38,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             return View(materialViewModel);
         }
 
-        // POST: MaterialController/Create
         [HttpPost]
         public ActionResult Create(MaterialDto material)
         {
@@ -101,7 +99,6 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
         }
 
-        // GET: MaterialController/Delete/5
         public ActionResult Delete(MaterialDto material)
         {
             var commandResult = _materialService.Delete(material);
