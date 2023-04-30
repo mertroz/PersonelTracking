@@ -23,7 +23,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label asp-for="Salary" class="control-label">Maaş</label>
-                            <input asp-for="Salary" class="form-control" required/>
+                            <input asp-for="Salary" class="form-control" required min="1" type="number" />
                             <span asp-validation-for="Salary" class="text-danger"></span>
                         </div>
                         <div class="col-md-6 mb-3">

@@ -84,6 +84,12 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             else
             {
                 TempData["ResultMessage"] = result.Message;
+
+                shift.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
                 return View(shift);
             }
         }
@@ -118,9 +124,20 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
             else
             {
-
                 TempData["ResultMessage"] = commandResult.Message;
-                return View(shift);
+
+                ShiftViewModel model = new ShiftViewModel();
+                model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
+                model.WorkingTime = shift.WorkingTime;
+                model.EmployeeId = shift.EmployeeId;
+                model.WorkingDate = shift.WorkingDate;
+                model.Id = shift.Id;
+
+                return View(model);
             }
         }
 

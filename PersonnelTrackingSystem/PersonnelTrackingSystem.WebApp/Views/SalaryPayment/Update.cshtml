@@ -5,80 +5,82 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="row">
-    <div class="float-start col-4">
-        @if (TempData.ContainsKey("ResultMessage"))
-        {
-            <div class="alert alert-success">
-                @TempData["ResultMessage"]
-            </div>
-        }
-    </div>
-</div>
+
 
 <h4>Personel Maaş Düzenleme</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
-        <form asp-action="Update">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
-                <select asp-for="EmployeeId" class="form-select" required
-                        asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
-                    <option value="">Seçiniz</option>
-                </select>
+    <div class="col-12 col-xl-8">
+        @if (TempData.ContainsKey("ResultMessage"))
+        {
+            <div class="alert alert-danger ">
+                @TempData["ResultMessage"]
             </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" required />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Month" class="control-label">Ay</label>
-                <span asp-validation-for="Month" class="text-danger"></span>
-                <select asp-for="Month" class="form-select mb-0" required>
-                    <option selected value="">Seçiniz</option>
-                    <option value="1">Ocak</option>
-                    <option value="2">Şubat</option>
-                    <option value="3">Mart</option>
-                    <option value="4">Nisan</option>
-                    <option value="5">Mayıs</option>
-                    <option value="6">Haziran</option>
-                    <option value="7">Temmuz</option>
-                    <option value="8">Ağustos</option>
-                    <option value="9">Eylül</option>
-                    <option value="10">Ekim</option>
-                    <option value="11">Kasım</option>
-                    <option value="12">Aralık</option>
-                </select>
+        }
+        <div class="form-group">
+            <div class="card card-body border-0 shadow mb-4">
+                <form asp-action="Update">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Employees" class="control-label">Personel Bilgisi</label>
+                            <select asp-for="EmployeeId" class="form-select" required
+                                    asp-items="@(new SelectList(Model.Employees, "Id", "FullName"))">
+                                <option value=0>Seçiniz</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label asp-for="Month" class="control-label">Ay</label>
+                            <span asp-validation-for="Month" class="text-danger"></span>
+                            <select asp-for="Month" class="form-select mb-0" required>
+                                <option selected value="">Seçiniz</option>
+                                <option value="1">Ocak</option>
+                                <option value="2">Şubat</option>
+                                <option value="3">Mart</option>
+                                <option value="4">Nisan</option>
+                                <option value="5">Mayıs</option>
+                                <option value="6">Haziran</option>
+                                <option value="7">Temmuz</option>
+                                <option value="8">Ağustos</option>
+                                <option value="9">Eylül</option>
+                                <option value="10">Ekim</option>
+                                <option value="11">Kasım</option>
+                                <option value="12">Aralık</option>
+                            </select>
 
-            </div>
-            @{
-                var thisYear = DateTime.Now.Year;
-                var endYear = thisYear + 10;
-                var yearList = Enumerable.Range(thisYear, 11).ToList();
-            }
+                        </div>
 
-            <div class="form-group">
-                <label asp-for="Year" class="control-label"></label>
-                <select asp-for="Year" class="form-select mb-0" required>
-                    <option selected value="">Seçiniz</option>
-                    @foreach (var year in yearList)
-                    {
-                        <option value="@year">@year</option>
+                    </div>
+                    @{
+                        var thisYear = DateTime.Now.Year;
+                        var endYear = thisYear + 10;
+                        var yearList = Enumerable.Range(thisYear, 11).ToList();
                     }
-                </select>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+
+                            <label asp-for="Year" class="control-label"></label>
+                            <select asp-for="Year" class="form-select mb-0" required>
+                                <option selected value="">Seçiniz</option>
+                                @foreach (var year in yearList)
+                                {
+                                    <option value="@year">@year</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group form-check">
+                        <label class="form-check-label">
+                            <label asp-for="Paid" class="control-label">Ödendi</label>
+                            <input class="form-check-input" asp-for="Paid" /> 
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Kaydet" class="btn btn-primary" />
+                    </div>
+                </form>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Paid" /> @Html.DisplayNameFor(model => model.Paid)
-                </label>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Kaydet" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 

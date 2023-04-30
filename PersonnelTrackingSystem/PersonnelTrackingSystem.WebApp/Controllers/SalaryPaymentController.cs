@@ -180,20 +180,21 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                     EmployeeId = model.EmployeeId,
                     Month = model.Month,
                     Year = model.Year,
-                    Paid = false
+                    Paid = model.Paid,
                 };
                 var result = _salaryPaymentService.Create(salaryPaymentDto);
                 TempData["ResultMessage"] = result.Message;
                 return RedirectToAction("Index");
             }
             else
-            {
+            {            
+                TempData["ResultMessage"] = "Bu kullanıcı için maaş bilgileri girilmesi gerekiyor.";
+
                 model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
                 {
                     FullName = x.FirstName + ' ' + x.LastName,
                     Id = x.Id
                 }).ToList();
-                TempData["ResultMessage"] = "Bu kullanıcı için maaş bilgileri girilmesi gerekiyor.";
                 return View(model);
             }
         }
@@ -231,10 +232,24 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
                 return RedirectToAction("Index");
             }
             else
-            {
-
+            {               
                 TempData["ResultMessage"] = commandResult.Message;
-                return View(salaryPayment);
+
+                SalaryPaymentViewModel model = new SalaryPaymentViewModel();
+                model.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
+
+                model.EmployeeId = salaryPayment.EmployeeId;
+                model.Amount = salaryPayment.Amount;
+                model.Month = salaryPayment.Month;
+                model.Year = salaryPayment.Year;
+                model.Paid = salaryPayment.Paid;
+                model.Id = salaryPayment.Id;
+
+                return View(model);
             }
         }
     }

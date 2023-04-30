@@ -78,9 +78,14 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             }
             else
             {
+                cost.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
 
                 TempData["ResultMessage"] = result.Message;
-                return View();
+                return View(cost);
             }
         }
 

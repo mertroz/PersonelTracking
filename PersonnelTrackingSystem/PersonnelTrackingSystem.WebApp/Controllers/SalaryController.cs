@@ -47,11 +47,19 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         public ActionResult Create(SalaryCalculatorViewModel model)
         {
             SalaryCalculatorDto salaryCalculatorDto = _salaryCalculatorService.GetByEmployeeId(model.EmployeeId);
+
             if (salaryCalculatorDto!=null)
             {
                 TempData["ResultMessage"] = "Bu kullanıcıya ait maaş bilgisi zaten mevcut.";
-                return View();
+                model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
+                return View(model);
             }
+
+            
 
             salaryCalculatorDto = new SalaryCalculatorDto();
             salaryCalculatorDto.Id = model.Id;
@@ -59,6 +67,7 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             salaryCalculatorDto.Bonus = model.Bonus;
             salaryCalculatorDto.TransportationAllowance = model.TransportationAllowance;
             salaryCalculatorDto.Salary = model.Salary;
+            salaryCalculatorDto.MealAllowance= model.MealAllowance;
 
             var result = _salaryCalculatorService.Create(salaryCalculatorDto);
             if (result.IsSuccess)
@@ -70,7 +79,12 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             {
 
                 TempData["ResultMessage"] = result.Message;
-                return View();
+                model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
+                return View(model);
             }
         }
 
@@ -108,6 +122,20 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             {
 
                 TempData["ResultMessage"] = commandResult.Message;
+
+                SalaryCalculatorViewModel model = new SalaryCalculatorViewModel();
+
+                model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
+
+                model.Salary = salaryCalculator.Salary;
+                model.EmployeeId = salaryCalculator.EmployeeId;
+                model.TransportationAllowance = salaryCalculator.TransportationAllowance;
+                model.Bonus = salaryCalculator.Bonus;
+                model.MealAllowance = salaryCalculator.MealAllowance;
                 return View(salaryCalculator);
             }
         }

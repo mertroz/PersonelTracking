@@ -43,6 +43,13 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
         [HttpPost]
         public ActionResult Create(PermissionViewModel permission)
         {
+            permission.Employees = _employeeService.GetAllByUser(User).Select(x => new EmployeeViewModel
+            {
+                FullName = x.FirstName + ' ' + x.LastName,
+                Id = x.Id
+            }).ToList();
+
+
             if (permission.PermitStartDate>permission.PermitEndDate)
             {
                 TempData["ResultMessage"] = "İzin başlangıç tarihi bitiş tarihinden büyük olamaz.";
@@ -64,6 +71,8 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             else
             {
                 TempData["ResultMessage"] = result.Message;
+
+             
                 return View(permission);
             }
         }

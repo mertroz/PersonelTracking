@@ -64,6 +64,18 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             {
 
                 TempData["ResultMessage"] = result.Message;
+
+                user.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+                 {
+                     FullName = x.FirstName + ' ' + x.LastName,
+                     Id = x.Id
+                 }).ToList();
+                user.Roles = _roleService.GetAll().Select(x => new RoleViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToList();
+
                 return View();
             }
         }
@@ -104,7 +116,24 @@ namespace PersonnelTrackingSystem.WebApp.Controllers
             {
 
                 TempData["ResultMessage"] = commandResult.Message;
-                return View(user);
+
+                UserViewModel model = new UserViewModel();
+                model.Employees = _employeeService.GetAll().Select(x => new EmployeeViewModel
+                {
+                    FullName = x.FirstName + ' ' + x.LastName,
+                    Id = x.Id
+                }).ToList();
+                model.Roles = _roleService.GetAll().Select(x => new RoleViewModel
+                {
+                    Id = x.Id,
+                    Name = x.Name
+                }).ToList();
+                model.UserName = user.UserName;
+                model.EmployeeId = user.EmployeeId;
+                model.Password = user.Password;
+                model.RoleId = user.RoleId;
+
+                return View(model);
             }
         }
 
